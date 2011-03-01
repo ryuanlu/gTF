@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="window">
+    <property name="resizable">False</property>
+    <signal name="delete_event" handler="gtk_widget_hide_on_delete" after="yes"/>
+    <child>
+      <object class="GtkTable" id="table1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkFrame" id="frame1">
+            <property name="visible">True</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">out</property>
+            <child>
+              <object class="GtkAlignment" id="alignment1">
+                <property name="visible">True</property>
+                <property name="top_padding">10</property>
+                <property name="bottom_padding">10</property>
+                <property name="left_padding">12</property>
+                <property name="right_padding">12</property>
+                <child>
+                  <object class="GtkTreeView" id="properties_view">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">properties</property>
+                    <property name="headers_visible">False</property>
+                    <property name="search_column">0</property>
+                    <property name="enable_grid_lines">both</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="filename">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;No opened file&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x_padding">5</property>
+            <property name="y_padding">5</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="properties">
+    <columns>
+      <!-- column-name Item -->
+      <column type="gchararray"/>
+      <!-- column-name string -->
+      <column type="gchararray"/>
+      <!-- column-name xalignA -->
+      <column type="gfloat"/>
+      <!-- column-name xalignB -->
+      <column type="gfloat"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;RAW file&lt;/b&gt;</col>
+        <col id="1" translatable="yes">-</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;Dimension&lt;/b&gt;</col>
+        <col id="1" translatable="yes">? x ? x ?</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;Ratio&lt;/b&gt;</col>
+        <col id="1" translatable="yes">? : ? : ?</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;Voxel format&lt;/b&gt;</col>
+        <col id="1" translatable="yes">?</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;Byte order&lt;/b&gt;</col>
+        <col id="1" translatable="yes">&lt;b&gt;Unknown&lt;/b&gt;</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;File size&lt;/b&gt;</col>
+        <col id="1" translatable="yes">&lt;b&gt;Unknown&lt;/b&gt;</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;Max/Min value&lt;/b&gt;</col>
+        <col id="1" translatable="yes">&lt;b&gt;Unknown&lt;/b&gt;</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;IKD tree file&lt;/b&gt;</col>
+        <col id="1" translatable="yes">&lt;b&gt;Unknown&lt;/b&gt;</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">&lt;b&gt;Normal texture file&lt;/b&gt;</col>
+        <col id="1" translatable="yes">&lt;b&gt;Unknown&lt;/b&gt;</col>
+        <col id="2">0</col>
+        <col id="3">0.5</col>
+      </row>
+    </data>
+  </object>
+</interface>

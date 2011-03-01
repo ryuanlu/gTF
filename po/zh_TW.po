@@ -1,0 +1,330 @@
+
+msgid	"Transfer Function"
+msgstr	"轉換函數"
+
+msgid	"Value"
+msgstr	"函數值"
+
+msgid	"Freq."
+msgstr	"總量"
+
+msgid	"_File"
+msgstr	"檔案(_F)"
+
+msgid	"_View"
+msgstr	"檢視(_V)"
+
+msgid	"_Tools"
+msgstr	"工具(_T)"
+
+msgid	"_Help"
+msgstr	"說明(_H)"
+
+msgid	"Choose the transfer function kernel to use"
+msgstr	"選擇要使用的轉換函數"
+
+msgid	"Axis aligned 2D slice image"
+msgstr	"軸相依2D切片影像"
+
+msgid	"Volume Rendering - Axis aligned 3D texture"
+msgstr	"實體成像 - Axis aligned 3D texture"
+
+msgid	"Volume Rendering - View aligned 3D texture"
+msgstr	"實體成像 - View aligned 3D texture"
+
+msgid	"Volume Rendering - Splatting method"
+msgstr	"實體成像 - Splatting method"
+
+msgid	"Iso-surface - Subdivision"
+msgstr	"等值曲面 - Subdivision"
+
+msgid	"Iso-surface - Marching tetrahedron"
+msgstr	"等值曲面 - Marching tetrahedron"
+
+msgid	"Filter - Adaptive Gaussian Filter"
+msgstr	"濾鏡 - Adaptive Gaussian Filter"
+
+msgid	"Resampler"
+msgstr	"資料重取樣"
+
+msgid	"Settings"
+msgstr	"設定"
+
+msgid	"Snapshot"
+msgstr	"視窗截圖"
+
+msgid	"Iso-value"
+msgstr	"函數值"
+
+msgid	"Depth"
+msgstr	"切割深度"
+
+msgid	"Pixel size"
+msgstr	"像素大小"
+
+msgid	"Vertex buffer size"
+msgstr	"頂點緩衝區大小"
+
+msgid	"Buffer usage:"
+msgstr	"緩衝區記憶體使用量："
+
+msgid	"Reverse normals"
+msgstr	"反轉法向量"
+
+msgid	"Integrated Volume Rendering Program"
+msgstr	"整合式實體成像軟體"
+
+msgid	"Copyright © 2008-2010 Ruei-Yuan Lu\n\nComputer Graphics Laboratory, Computer Science and Engineering\n\nNational Taiwan Ocean University"
+msgstr	"Copyright © 2008-2010 盧瑞元\n\n國立臺灣海洋大學　資訊工程系　503 電腦圖學實驗室"
+
+msgid	"Vertex buffer overflow, please increase the buffer size."
+msgstr	"頂點緩衝區溢位，請增加緩衝區容量。"
+
+msgid	"Light"
+msgstr	"燈光"
+
+msgid	"Material"
+msgstr	"材質"
+
+msgid	"Ambient"
+msgstr	"環繞"
+
+msgid	"Diffuse"
+msgstr	"散射"
+
+msgid	"Specular"
+msgstr	"反射"
+
+msgid	"Specular EXP."
+msgstr	"反射指數"
+
+msgid	"Background color"
+msgstr	"背景顏色"
+
+msgid	"Perspective FOV"
+msgstr	"透視投影 FOV"
+
+msgid	"Orthogonal projection"
+msgstr	"平行投影"
+
+msgid	"Enhanced 1D Transfer Function"
+msgstr	"增強型一維轉換函數"
+
+msgid	"Open File"
+msgstr	"開啟檔案"
+
+msgid	"Save File"
+msgstr	"儲存檔案"
+
+msgid	"Gradient magnitudes effect alpha channel"
+msgstr	"梯度向量長度影響透明度"
+
+msgid	"Enable color assignment"
+msgstr	"套用顏色"
+
+msgid	"Enable opacity assignment"
+msgstr	"套用不透明度"
+
+msgid	"Histogram/Colormap/Opacity"
+msgstr	"統計圖／色彩／不透明度"
+
+msgid	"Modifiers"
+msgstr	"編輯器"
+
+msgid	"Apply to color"
+msgstr	"套用到顏色"
+
+msgid	"Apply to opacity"
+msgstr	"套用到不透明度"
+
+msgid	"Enable edge enhancement."
+msgstr	"啟用邊界強化"
+
+msgid	"HSV"
+msgstr	"HSV色環"
+
+msgid	"Grayscale"
+msgstr	"灰階"
+
+msgid	"Hot"
+msgstr	"熱度（黑紅黃白）"
+
+msgid	"Cool"
+msgstr	"清涼"
+
+msgid	"Spring"
+msgstr	"春天"
+
+msgid	"Summer"
+msgstr	"夏天"
+
+msgid	"Autumn"
+msgstr	"秋天"
+
+msgid	"Winter"
+msgstr	"冬天"
+
+msgid	"Copper"
+msgstr	"銅色系"
+
+msgid	"Interpolate & Fill"
+msgstr	"內插並填滿"
+
+msgid	"Fill the selected section with colormap\nApplied immediately"
+msgstr	"以內建的色票填滿選擇的區間\n選擇後立即生效"
+
+msgid	"Start value"
+msgstr	"起始值"
+
+msgid	"End value"
+msgstr	"終點值"
+
+msgid	"Slicing density"
+msgstr	"切片密度"
+
+msgid	"Z axis - XY plane"
+msgstr	"Z 軸 - XY 平面"
+
+msgid	"Y axis - ZX plane"
+msgstr	"Y 軸 - ZX 平面"
+
+msgid	"X axis - YZ plane"
+msgstr	"X 軸 - YZ 平面"
+
+msgid	"Enable IKD tree acceleration"
+msgstr	"啟用IKD tree加速"
+
+msgid	"Histogram equalization"
+msgstr	"直方圖等化"
+
+msgid	"Properties"
+msgstr	"屬性"
+
+msgid	"<b>RAW file</b>"
+msgstr	"<b>RAW 檔</b>"
+
+msgid	"<b>Dimension</b>"
+msgstr	"<b>資料維度</b>"
+
+msgid	"<b>Ratio</b>"
+msgstr	"<b>修正比例</b>"
+
+msgid	"<b>Voxel format</b>"
+msgstr	"<b>資料單位格式</b>"
+
+msgid	"<b>Byte order</b>"
+msgstr	"<b>位元排列</b>"
+
+msgid	"<b>File size</b>"
+msgstr	"<b>檔案大小</b>"
+
+msgid	"<b>Max/Min value</b>"
+msgstr	"<b>最大／最小值</b>"
+
+msgid	"<b>IKD tree file</b>"
+msgstr	"<b>IKD tree檔</b>"
+
+msgid	"<b>Normal texture file</b>"
+msgstr	"<b>法向量材質檔</b>"
+
+msgid	"Invalid volume information file"
+msgstr	"無效的資料描述檔"
+
+msgid	"<b>Unassigned</b>"
+msgstr	"<b>未指定</b>"
+
+msgid	"<b>Unknown</b>"
+msgstr	"<b>不明</b>"
+
+msgid	"Generate pre-calculated gradient texture file"
+msgstr	"產生梯度向量材質檔"
+
+msgid	"Generate IKD tree file"
+msgstr	"產生IKD tree檔"
+
+msgid	"Failed to open file"
+msgstr	"開啟檔案失敗"
+
+msgid	"File saved successfully"
+msgstr	"檔案儲存成功"
+
+msgid	"OpenGL Window settings"
+msgstr	"OpenGL 視窗設定"
+
+msgid	"<b>No opened file</b>"
+msgstr	"<b>尚未開啟任何檔案</b>"
+
+msgid	"Enhanced 2D Transfer Function"
+msgstr	"增強型二維轉換函數"
+
+msgid	"Gradient\nmagnitude"
+msgstr	"梯度長度"
+
+msgid	"Gradient magnitude"
+msgstr	"梯度長度"
+
+msgid	"2D Histogram/Colormap"
+msgstr	"二維統計圖/色彩"
+
+msgid	"Load from file ..."
+msgstr	"從檔案讀取 ..."
+
+msgid	"Save current colormap"
+msgstr	"儲存目前的Colormap"
+
+msgid	"Magnitude of first-order derivative (Gradient)"
+msgstr	"一階導數長度（梯度）"
+
+msgid	"Reset opacity"
+msgstr	"重置不透明度"
+
+msgid	"Choose prefered histogram"
+msgstr	"選擇偏好的統計圖"
+
+msgid	"Show histogram"
+msgstr	"顯示統計圖"
+
+msgid	"Show opacity"
+msgstr	"顯示不透明度"
+
+msgid	"Draw bounding box"
+msgstr	"描繪邊框"
+
+msgid	"Fill"
+msgstr	"填充"
+
+msgid	"Constant"
+msgstr	"常數"
+
+msgid	"Tent"
+msgstr	"帳篷"
+
+msgid	"Gaussian"
+msgstr	"高斯常態分佈"
+
+msgid	"Filling mode of horizontal varying"
+msgstr	"水平變化的填充模式"
+
+msgid	"Opacity of horizontal varying"
+msgstr	"水平變化的最大不透明度"
+
+msgid	"Opacity of vertical varying"
+msgstr	"垂直變化的最大不透明度"
+
+msgid	"Derivative of Gaussian function"
+msgstr	"高斯常態分佈的標準差"
+
+msgid	"Power of vertical varying"
+msgstr	"垂直變化的指數"
+
+msgid	"Save as .obj"
+msgstr	"另存成 .obj"
+
+msgid	"Thickness"
+msgstr	"厚度"
+
+msgid	"Max. gradient magnitude:"
+msgstr	"最大梯度向量長度:"
+
+msgid	"Enable"
+msgstr	"啟用"

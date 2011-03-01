@@ -1,0 +1,663 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkVBox" id="vbox1">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkHBox" id="hbox1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkVBox" id="vbox3">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Gradient
+magnitude</property>
+                <property name="justify">center</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">MAX</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="gmax">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label8">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Min</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="gmin">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label6">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Min</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="vmin">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">5</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkVBox" id="vbox2">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkToolbar" id="toolbar1">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_size_set">True</property>
+                <child>
+                  <object class="GtkToolItem" id="histogram_block">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkComboBox" id="histogram_selector">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Choose prefered histogram</property>
+                        <property name="model">histogram_list</property>
+                        <property name="active">0</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem" id="separator1">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="reset_button">
+                    <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes">Reset opacity</property>
+                    <property name="label" translatable="yes">&#x91CD;&#x7F6E;</property>
+                    <property name="use_underline">True</property>
+                    <property name="stock_id">gtk-undo</property>
+                    <signal name="clicked" handler="ETF2Dpanel_ResetClicked_handler"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem" id="separator2">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleToolButton" id="histogram">
+                    <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes">Show histogram</property>
+                    <property name="label" translatable="yes">Histogram</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_widget">image1</property>
+                    <property name="active">True</property>
+                    <signal name="toggled" handler="ETF2Dpanel_toggle_switch"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleToolButton" id="opacity">
+                    <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes">Show opacity</property>
+                    <property name="label" translatable="yes">Opacity</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_widget">image2</property>
+                    <property name="active">True</property>
+                    <signal name="toggled" handler="ETF2Dpanel_toggle_switch"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="frame1">
+                <property name="visible">True</property>
+                <property name="label_xalign">0</property>
+                <child>
+                  <object class="GtkAlignment" id="alignment1">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkDrawingArea" id="hdisplay">
+                        <property name="width_request">512</property>
+                        <property name="height_request">281</property>
+                        <property name="visible">True</property>
+                        <property name="events">GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                        <signal name="expose_event" handler="ETF2Dpanel_hdisplay_handler"/>
+                        <signal name="motion_notify_event" handler="ETF2Dpanel_hdisplayMouseMove_handler"/>
+                        <signal name="button_press_event" handler="ETF2Dpanel_hdisplayMouseDown_handler"/>
+                        <signal name="button_release_event" handler="ETF2Dpanel_hdisplayMouseUp_handler"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label1">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">2D Histogram/Colormap</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="status">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkVBox" id="vbox4">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="label10">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">MAX</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label11">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Value</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="vmax">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">5</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="padding">3</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkHSeparator" id="hseparator1">
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame2">
+        <property name="visible">True</property>
+        <property name="label_xalign">0</property>
+        <child>
+          <object class="GtkAlignment" id="alignment2">
+            <property name="visible">True</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkHBox" id="hbox2">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkTable" id="table2">
+                    <property name="visible">True</property>
+                    <property name="n_rows">2</property>
+                    <property name="n_columns">3</property>
+                    <child>
+                      <object class="GtkComboBox" id="mode_selector">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Filling mode of horizontal varying</property>
+                        <property name="model">modelist</property>
+                        <property name="active">0</property>
+                      </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHScale" id="opacity_h">
+                        <property name="width_request">100</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Opacity of horizontal varying</property>
+                        <property name="adjustment">adjustment1</property>
+                        <property name="lower_stepper_sensitivity">on</property>
+                        <property name="upper_stepper_sensitivity">on</property>
+                        <property name="digits">0</property>
+                        <property name="value_pos">right</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="sigma">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Derivative of Gaussian function</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="xalign">1</property>
+                        <property name="adjustment">adjustment4</property>
+                        <property name="digits">1</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="right_attach">3</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHScale" id="opacity_v">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Opacity of vertical varying</property>
+                        <property name="adjustment">adjustment2</property>
+                        <property name="lower_stepper_sensitivity">on</property>
+                        <property name="upper_stepper_sensitivity">on</property>
+                        <property name="digits">0</property>
+                        <property name="value_pos">right</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHScale" id="exp">
+                        <property name="width_request">100</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Power of vertical varying</property>
+                        <property name="adjustment">adjustment3</property>
+                        <property name="lower_stepper_sensitivity">on</property>
+                        <property name="upper_stepper_sensitivity">on</property>
+                        <property name="digits">0</property>
+                        <property name="value_pos">right</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="right_attach">3</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="fill_opacity">
+                        <property name="label" translatable="yes">Fill</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <signal name="clicked" handler="ETF2Dpanel_FillClicked_handler"/>
+                      </object>
+                      <packing>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkVSeparator" id="vseparator1">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="padding">5</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkTable" id="table1">
+                    <property name="visible">True</property>
+                    <property name="n_rows">2</property>
+                    <property name="n_columns">3</property>
+                    <child>
+                      <object class="GtkColorButton" id="color_A">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="color">#000000000000</property>
+                        <signal name="color_set" handler="ETF2Dpanel_colorAChange_handler"/>
+                      </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkColorButton" id="color_B">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="color">#000000000000</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="value_A">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Start value</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="xalign">1</property>
+                        <property name="adjustment">adjustment5</property>
+                        <signal name="value_changed" handler="ETF2Dpanel_ValueChange_handler"/>
+                      </object>
+                      <packing>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="value_B">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">End value</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="xalign">1</property>
+                        <property name="adjustment">adjustment6</property>
+                        <signal name="value_changed" handler="ETF2Dpanel_ValueChange_handler"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="fill_color">
+                        <property name="label" translatable="yes">Interpolate &amp; Fill</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <signal name="clicked" handler="ETF2Dpanel_Interpolate"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="right_attach">3</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="colormap_selector">
+                        <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Fill the selected section with colormap
+Applied immediately</property>
+                        <property name="model">colormaplist</property>
+                        <signal name="changed" handler="ETF2Dpanel_AssignColormap"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="right_attach">3</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label4">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Modifiers</property>
+            <property name="use_markup">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="position">2</property>
+      </packing>
+    </child>
+  </object>
+  <object class="GtkListStore" id="histogram_list">
+    <columns>
+      <!-- column-name string -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Magnitude of first-order derivative (Gradient)</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="width_request">12</property>
+    <property name="height_request">12</property>
+    <property name="visible">True</property>
+    <property name="pixbuf">histogram.png</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="width_request">12</property>
+    <property name="height_request">12</property>
+    <property name="visible">True</property>
+    <property name="pixbuf">opacity.png</property>
+  </object>
+  <object class="GtkListStore" id="colormaplist">
+    <columns>
+      <!-- column-name string -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">HSV</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Grayscale</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Hot</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Cool</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Spring</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Summer</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Autumn</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Winter</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Copper</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Load from file ...</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="value">255</property>
+    <property name="upper">256</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+    <property name="page_size">1</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="value">255</property>
+    <property name="upper">256</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+    <property name="page_size">1</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment3">
+    <property name="upper">4</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+    <property name="page_size">1</property>
+  </object>
+  <object class="GtkListStore" id="modelist">
+    <columns>
+      <!-- column-name string -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Constant</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Tent</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Gaussian</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="adjustment4">
+    <property name="upper">10</property>
+    <property name="step_increment">0.10000000000000001</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment5">
+    <property name="step_increment">1</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment6">
+    <property name="step_increment">1</property>
+  </object>
+</interface>

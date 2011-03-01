@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkWindow" id="mainwin">
+    <property name="title" translatable="yes">Transfer Function</property>
+    <property name="resizable">False</property>
+    <signal name="delete_event" handler="Mainwin_Close_handler"/>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkMenuBar" id="menubar">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkMenuItem" id="file_menuitem">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_File</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="file_menu">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="file_menuitem_1">
+                        <property name="label">gtk-open</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="Mainwin_OpenClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="file_menuitem_2">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="file_menuitem_3">
+                        <property name="label">gtk-properties</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="Mainwin_PropertiesClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="file_menuitem_4">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="file_menuitem_5">
+                        <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="Mainwin_QuitClicked_handler"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="view_menuitem">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_View</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="view_menu">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkCheckMenuItem" id="view_menuitem_1">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Axis aligned 2D slice image</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="Mainwin_ViewClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckMenuItem" id="view_menuitem_2">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Volume Rendering - Axis aligned 3D texture</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="Mainwin_ViewClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckMenuItem" id="view_menuitem_3">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Volume Rendering - View aligned 3D texture</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="Mainwin_ViewClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckMenuItem" id="view_menuitem_4">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Iso-surface - Marching tetrahedron</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="Mainwin_ViewClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckMenuItem" id="view_menuitem_5">
+                        <property name="no_show_all">True</property>
+                        <property name="label" translatable="yes">Iso-surface - Subdivision</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="Mainwin_ViewClicked_handler"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="tools_menuitem">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Tools</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="tools_menu">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkMenuItem" id="tools_menuitem_1">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Generate pre-calculated gradient texture file</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="Mainwin_GradientClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="tools_menuitem_2">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Generate IKD tree file</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="Mainwin_IKDtreeClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="tools_menuitem_3">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Histogram equalization</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="Mainwin_HistogramEQClicked_handler"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="tools_menuitem_4">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckMenuItem" id="tools_menuitem_5">
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="label" translatable="yes">Enable IKD tree acceleration</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="Mainwin_IKDtreeToggled_handler"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="help_menuitem">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Help</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="help_menu">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="help_menuitem_1">
+                        <property name="label">gtk-about</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="Mainwin_AboutClicked_handler"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkComboBox" id="tf_selector">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Choose the transfer function kernel to use</property>
+                <property name="model">tflist</property>
+                <signal name="changed" handler="Mainwin_TFChanged_handler"/>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAboutDialog" id="aboutdialog">
+    <property name="type_hint">normal</property>
+    <property name="copyright" translatable="yes">Copyright &#xA9; 2008-2010 Ruei-Yuan Lu
+
+Computer Graphics Laboratory, Computer Science and Engineering
+
+National Taiwan Ocean University</property>
+    <property name="comments" translatable="yes">Integrated Volume Rendering Program</property>
+    <property name="website">http://rinoworks.blogspot.com/</property>
+    <property name="website_label" translatable="yes">http://rinoworks.blogspot.com/</property>
+    <signal name="response" handler="Mainwin_AboutClose_handler"/>
+    <signal name="delete_event" handler="Mainwin_AboutClose_handler"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="tflist">
+    <columns>
+      <!-- column-name tf -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+</interface>
