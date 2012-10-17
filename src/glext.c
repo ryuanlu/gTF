@@ -1,7 +1,7 @@
 #ifdef	__WIN32__
 
-#include	"glext.h"
-#include	<windows.h>
+#include "glext.h"
+#include <windows.h>
 
 
 PFNGLCREATEPROGRAMPROC		glCreateProgram;

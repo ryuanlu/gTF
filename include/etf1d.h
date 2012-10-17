@@ -1,26 +1,25 @@
 #ifndef TF1D_H_
 #define TF1D_H_
 
-#include	<gtk/gtk.h>
-#include	<gtk/gtkgl.h>
-#include	"va3Dtexwin.h"
+#include <gtk/gtk.h>
+#include "gtk_glcanvas.h"
+#include "va3Dtexwin.h"
 
 #define	TF1D_TEXTURE_WIDTH		(4096)
 
 
 typedef struct
 {
-	int			volumeloc;		//	Location of uniform variable(for volume) in shader
-	int			tf1dloc;		//	Location of uniform variable(for colormap) in shader
-	int			stencilloc;		//	Location of uniform variable(for gradient stencil) in shader
-	int			coefloc;		//	Location of uniform variable(for correction coef) in shader
-	int			shiftloc;		//	Location of uniform variable(for correction coef) in shader
-	int			deltaloc;
-	int			normalloc;
-
-	int			levoy_swloc;
-	int			levoy_valueloc;
-	int			levoy_thicknessloc;
+	int	volumeloc;		//	Location of uniform variable(for volume) in shader
+	int	tf1dloc;		//	Location of uniform variable(for colormap) in shader
+	int	stencilloc;		//	Location of uniform variable(for gradient stencil) in shader
+	int	coefloc;		//	Location of uniform variable(for correction coef) in shader
+	int	shiftloc;		//	Location of uniform variable(for correction coef) in shader
+	int	deltaloc;
+	int	normalloc;
+	int	levoy_swloc;
+	int	levoy_valueloc;
+	int	levoy_thicknessloc;
 
 }ETF1D_3Dtexloc;
 
@@ -29,39 +28,33 @@ typedef struct
 {
 	//	GTK widgets
 
-	int			id;
+	int	id;
 
-	int			enabled;
-
-
-	GtkWidget*		hcodisplay;
-	GtkWidget*		opendialog;
-
-	GtkWidget*		cmapselect;
-	GtkWidget*		assign;
-
-	GtkWidget*		colorbox[2];
-	GtkWidget*		checkbox[2];
-	GtkWidget*		select_value[2];
-
-	GtkWidget*		status;
-	GtkWidget*		vbox;
-
-	GtkWidget*		vmax;
-	GtkWidget*		vmin;
-	GtkWidget*		hmax;
-	GtkWidget*		gmax;
-
-	GtkWidget*		levoy_sw;
-	GtkWidget*		levoy_value;
-	GtkWidget*		levoy_thickness;
+	int	enabled;
 
 
-	//	OpenGL involved
+	GtkWidget*	hcodisplay;
+	GtkGLCanvas	glcanvas;
+	GtkWidget*	opendialog;
 
-	GdkGLContext*		glrc;
-	GdkGLDrawable*		gldrawable;
+	GtkWidget*	cmapselect;
+	GtkWidget*	assign;
 
+	GtkWidget*	colorbox[2];
+	GtkWidget*	checkbox[2];
+	GtkWidget*	select_value[2];
+
+	GtkWidget*	status;
+	GtkWidget*	vbox;
+
+	GtkWidget*	vmax;
+	GtkWidget*	vmin;
+	GtkWidget*	hmax;
+	GtkWidget*	gmax;
+
+	GtkWidget*	levoy_sw;
+	GtkWidget*	levoy_value;
+	GtkWidget*	levoy_thickness;
 
 
         int*	histogram;
@@ -72,16 +65,16 @@ typedef struct
         int*	histogram_leftdiff;
         int*	histogram_rightdiff;
 
-        int			SelectFrom;
-	int			SelectTo;
+        int	SelectFrom;
+	int	SelectTo;
 
-	unsigned int		ctex,otex;	//	texture objects
+	unsigned int	ctex,otex;	//	texture objects
 
 	unsigned char*	opacitytex;	//	opacity texture for display
 	unsigned char*	cmaptex;	//	colormap texture for display
 
 
-	hCMAP*			cmap;		//	source colormap
+	hCMAP*	cmap;		//	source colormap
 
 	int	cursorpos;	//	Current cursor position
 	int	selA;		//	Selected value (after single clicked)
@@ -92,7 +85,7 @@ typedef struct
 	int	FS;
 
 
-	unsigned int		etf1d_tex;			//	Texture object of colormap
+	unsigned int	etf1d_tex;			//	Texture object of colormap
 
 
 	ETF1D_3Dtexloc	AA3Dtexloc;

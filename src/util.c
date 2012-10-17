@@ -1,13 +1,12 @@
-#include	<stdio.h>
-#include	<stdlib.h>
-#include	<sys/stat.h>
-#include	<unistd.h>
-#include	<memory.h>
-#include	"gTF.h"
-#include	"glext.h"
-
-
-#include	"util.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <memory.h>
+#include <gtk/gtk.h>
+#include "intl.h"
+#include "glext.h"
+#include "util.h"
 
 
 //	ReadShaderText
@@ -273,8 +272,6 @@ void	glDrawBoundingBox(float x,float y,float z)
 
 	glEnd();
 }
-
-
 
 #ifndef	__WIN32__
 

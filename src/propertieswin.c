@@ -1,8 +1,8 @@
-#include	<memory.h>
-#include	"gTF.h"
-#include	"mainwin.h"
-
-#include	"propertieswin.h"
+#include <memory.h>
+#include "intl.h"
+#include "gTF.h"
+#include "mainwin.h"
+#include "propertieswin.h"
 
 strPropertieswin	Propertieswin;
 

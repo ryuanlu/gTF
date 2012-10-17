@@ -1,15 +1,15 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
-#include	<gtk/gtk.h>
+#include <gtk/gtk.h>
 
-#define	OPEN_DIALOG		0x00
-#define	SAVE_DIALOG		0x01
+#define	OPEN_DIALOG	0x00
+#define	SAVE_DIALOG	0x01
 
 
 /* structures for defining DIBs */
 
-#define	BI_RGB		0L
+#define	BI_RGB	0L
 
 
 
@@ -19,7 +19,8 @@
 //				sizeof(BITMAPFILEHEADER) should be 14, not 16.
 
 
-typedef struct tagBITMAPFILEHEADER {
+typedef struct tagBITMAPFILEHEADER
+{
 
 	short	bfType;
 	int	bfSize;
@@ -27,11 +28,11 @@ typedef struct tagBITMAPFILEHEADER {
         short	bfReserved2;
         int	bfOffBits;
 
-}BITMAPFILEHEADER,*PBITMAPFILEHEADER;
+}BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 
 
-typedef struct tagBITMAPINFOHEADER{
-
+typedef struct tagBITMAPINFOHEADER
+{
 	int	biSize;
 	int	biWidth;
 	int	biHeight;
@@ -44,28 +45,26 @@ typedef struct tagBITMAPINFOHEADER{
         int	biClrUsed;
         int	biClrImportant;
 
-} BITMAPINFOHEADER,*PBITMAPINFOHEADER;
+}BITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
 
 #pragma pack()	//	Restore alignment settings
 
 
 
-typedef struct tagRGBQUAD {
-
-        char	rgbBlue;
-        char	rgbGreen;
-        char	rgbRed;
-        char	rgbReserved;
-
+typedef struct tagRGBQUAD
+{
+	char	rgbBlue;
+	char	rgbGreen;
+	char	rgbRed;
+	char	rgbReserved;
 } RGBQUAD;
 
-typedef struct tagBITMAPINFO {
-
+typedef struct tagBITMAPINFO
+{
 	BITMAPINFOHEADER	bmiHeader;
-	RGBQUAD		bmiColors[1];
-
-}BITMAPINFO,*PBITMAPINFO;
+	RGBQUAD			bmiColors[1];
+} BITMAPINFO, *PBITMAPINFO;
 
 
 //	ReadShaderText
@@ -78,7 +77,7 @@ typedef struct tagBITMAPINFO {
 //	Returns	:	New pointer to the string.
 //
 
-char*	ReadShaderText(const char* filename);
+char* ReadShaderText(const char* filename);
 
 
 //	FileDialog
@@ -93,7 +92,7 @@ char*	ReadShaderText(const char* filename);
 //				you have to free that by yourself.
 //
 
-char*	FileDialog(int type,GtkWidget* parent_window);
+char* FileDialog(int type, GtkWidget* parent_window);
 
 
 //	glTakeScreenshot
@@ -107,9 +106,9 @@ char*	FileDialog(int type,GtkWidget* parent_window);
 //	Returns	:	nothing.
 //
 
-void	glTakeScreenshot(GtkWidget* window);
+void glTakeScreenshot(GtkWidget* window);
 
-void	matrix_x_vertex(float* v,float* M,float x,float y,float z);
+void matrix_x_vertex(float* v, float* M, float x, float y, float z);
 
 
 //	glLoadShader
@@ -123,7 +122,7 @@ void	matrix_x_vertex(float* v,float* M,float x,float y,float z);
 //	Returns	:	OpenGL Object number of the program object.
 //
 
-int	glLoadShader(const char* vs_file,const char* fs_file);
+int glLoadShader(const char* vs_file, const char* fs_file);
 
 
 //	glDrawBlock
@@ -137,7 +136,7 @@ int	glLoadShader(const char* vs_file,const char* fs_file);
 //	Returns	:	none
 //
 
-void	glDrawBlock(float x1,float y1,float x2,float y2);
+void glDrawBlock(float x1, float y1, float x2, float y2);
 
 
 //	glDrawBoundingBox
@@ -150,12 +149,10 @@ void	glDrawBlock(float x1,float y1,float x2,float y2);
 //	Returns	:	none
 //
 
-void	glDrawBoundingBox(float x,float y,float z);
+void glDrawBoundingBox(float x, float y, float z);
 
-
-
-void	printShaderInfoLog(int obj);
-void	printProgramInfoLog(int obj);
+void printShaderInfoLog(int obj);
+void printProgramInfoLog(int obj);
 
 
 #endif /* UTIL_H_ */

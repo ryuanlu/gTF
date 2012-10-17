@@ -1,15 +1,15 @@
 #ifndef PROPERTIESWIN_H_
 #define PROPERTIESWIN_H_
 
-#include	<gtk/gtk.h>
+#include <gtk/gtk.h>
 
 typedef struct
 {
-	GtkWidget*		window;
+	GtkWidget*	window;
 
-	GtkWidget*		content;
-	GtkWidget*		filename;
-	GtkListStore*		properties;
+	GtkWidget*	content;
+	GtkWidget*	filename;
+	GtkListStore*	properties;
 
 }strPropertieswin;
 

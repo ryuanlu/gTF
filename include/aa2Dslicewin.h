@@ -1,30 +1,27 @@
 #ifndef AA2DSLICEWIN_H_
 #define AA2DSLICEWIN_H_
 
-#include	<gtk/gtk.h>
-#include	<gtk/gtkgl.h>
+#include <gtk/gtk.h>
+#include "gtk_glcanvas.h"
 
 typedef struct
 {
-	GtkWidget*		window;
-	GtkWidget*		vbox[4];
-	GtkWidget*		hbox[4];
-	GtkWidget*		icon;
-	GtkWidget*		glcanvas;
+	GtkWidget*	window;
+	GtkWidget*	vbox[4];
+	GtkWidget*	hbox[4];
+	GtkWidget*	icon;
+	GtkWidget*	canvas;
+	GtkGLCanvas	glcanvas;
 
-	GtkWidget*		frame;
-	GtkWidget*		axis;
-	GtkWidget*		slice;
-	GtkWidget*		separator;
+	GtkWidget*	frame;
+	GtkWidget*	axis;
+	GtkWidget*	slice;
+	GtkWidget*	separator;
 
-	GdkGLContext*		glrc;
-	GdkGLDrawable*	gldrawable;
+	int		render_flag;
 
-
-	int			render_flag;
-
-	int			progobj;
-	int			shader[2];
+	int		progobj;
+	int		shader[2];
 
 
 

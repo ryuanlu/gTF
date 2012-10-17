@@ -1,16 +1,13 @@
-#include	<stdlib.h>
-#include	<memory.h>
-#include	<math.h>
-
-#include	"gTF.h"
-#include	"glext.h"
-#include	"util.h"
-#include	"mainwin.h"
-#include	"aa3Dtexctrlwin.h"
-
-#include	"etf1d.h"
-
-#include	"aa3Dtexwin.h"
+#include <stdlib.h>
+#include <memory.h>
+#include <math.h>
+#include "intl.h"
+#include "glext.h"
+#include "util.h"
+#include "mainwin.h"
+#include "aa3Dtexctrlwin.h"
+#include "etf1d.h"
+#include "aa3Dtexwin.h"
 
 strAA3DTexwin	AA3DTexwin;
 double diff;
@@ -20,7 +17,7 @@ void	tfCreateAA3DTexwin(void)
 	memset(&AA3DTexwin,0,sizeof(strAA3DTexwin));
 	textdomain("gtf");
 	AA3DTexwin.glwin=GLWin_new("Volume Rendering - Axis aligned 3D texture",gtftable.sharedrc);
-	gtftable.sharedrc=AA3DTexwin.glwin->glrc;
+	gtftable.sharedrc= glcanvas_get_render_context(AA3DTexwin.glwin->glcanvas);
 	AA3DTexwin.menuitem[0]=gtk_image_menu_item_new_with_label(_("Settings"));
 	AA3DTexwin.menuitem[1]=gtk_check_menu_item_new_with_label(_("Draw bounding box"));
 	AA3DTexwin.icon=gtk_image_new();
@@ -46,17 +43,17 @@ void	tfSetupAA3DTexwin(void)
 
 	//	Signal connections
 
-	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->glcanvas),"expose-event",G_CALLBACK(AA3DTexwin_glcanvas_handler),AA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->glcanvas),"button-press-event",G_CALLBACK(AA3DTexwin_ButtonDown_handler),AA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->glcanvas),"button-release-event",G_CALLBACK(AA3DTexwin_ButtonUp_handler),AA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->glcanvas),"motion-notify-event",G_CALLBACK(AA3DTexwin_MouseMotion_handler),AA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->glcanvas),"scroll-event",G_CALLBACK(AA3DTexwin_MouseWheel_handler),AA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->canvas),"expose-event",G_CALLBACK(AA3DTexwin_glcanvas_handler),AA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->canvas),"button-press-event",G_CALLBACK(AA3DTexwin_ButtonDown_handler),AA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->canvas),"button-release-event",G_CALLBACK(AA3DTexwin_ButtonUp_handler),AA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->canvas),"motion-notify-event",G_CALLBACK(AA3DTexwin_MouseMotion_handler),AA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->canvas),"scroll-event",G_CALLBACK(AA3DTexwin_MouseWheel_handler),AA3DTexwin.glwin);
 	g_signal_connect(G_OBJECT(AA3DTexwin.glwin->window),"delete-event",G_CALLBACK(AA3DTexwin_Close_handler),NULL);
 	g_signal_connect(G_OBJECT(AA3DTexwin.menuitem[0]),"activate",G_CALLBACK(AA3DTexwin_Menu_handler),NULL);
 	g_signal_connect(G_OBJECT(AA3DTexwin.menuitem[1]),"activate",G_CALLBACK(AA3DTexwin_Menu_handler),NULL);
 
 
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
 
 	//	GL initial state
@@ -229,7 +226,7 @@ int	AA3DTexwin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 
 
 	gtk_window_get_size(GTK_WINDOW(AA3DTexwin.glwin->window),&wx,&wy);
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glViewport(0,0,wx,wy);
@@ -241,8 +238,7 @@ int	AA3DTexwin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 
 	if(!AA3DTexwin.glwin->render_flag)
 	{
-		gdk_gl_drawable_swap_buffers(AA3DTexwin.glwin->gldrawable);
-
+		glcanvas_swap_buffers(AA3DTexwin.glwin->glcanvas);
 		return FALSE;
 	}
 
@@ -406,7 +402,7 @@ int	AA3DTexwin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 	glPopMatrix();
 	glPopMatrix();
 
-	gdk_gl_drawable_swap_buffers(AA3DTexwin.glwin->gldrawable);
+	glcanvas_swap_buffers(AA3DTexwin.glwin->glcanvas);
 
 	return FALSE;
 }
@@ -439,7 +435,7 @@ int	AA3DTexwin_MouseMotion_handler(GtkWidget *widget, GdkEventMotion *event,gpoi
 	AA3DTexwin.prev_pos[0]=event->x;
 	AA3DTexwin.prev_pos[1]=event->y;
 
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
         glGetFloatv(GL_MODELVIEW_MATRIX,M);
         glLoadIdentity();
@@ -485,7 +481,7 @@ int	AA3DTexwin_MouseWheel_handler(GtkWidget *widget, GdkEventScroll *event,gpoin
 	float M[16];
 
 	if(!AA3DTexwin.glwin->render_flag) return FALSE;
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
 	dir=event->direction ? 10:-10;
 
@@ -505,7 +501,7 @@ void	AA3DTexwin_Release(void)
 {
 	if(AA3DTexwin.glwin->render_flag)
 	{
-		gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+		glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
 		if(gtftable.AA3Dtex_release[gtftable.current_tf])
 			gtftable.AA3Dtex_release[gtftable.current_tf]();

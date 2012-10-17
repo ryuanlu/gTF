@@ -1,12 +1,8 @@
-#include	<stdlib.h>
-#include	<memory.h>
-
-#include	"gTF.h"
-#include	"glext.h"
-#include	"mainwin.h"
-#include	"va3Dtexwin.h"
-
-#include	"va3Dtexctrlwin.h"
+#include <memory.h>
+#include "intl.h"
+#include "mainwin.h"
+#include "va3Dtexwin.h"
+#include "va3Dtexctrlwin.h"
 
 
 strVA3DTexctrlwin	VA3DTexctrlwin;
@@ -52,7 +48,7 @@ void	tfSetupVA3DTexctrlwin(void)
 
 void	VA3DTexctrlwin_Apply_handler(GtkWidget *widget,gpointer user_data)
 {
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
 	VA3DTexwin.density=gtk_spin_button_get_value(GTK_SPIN_BUTTON(VA3DTexctrlwin.slice));
 
@@ -65,5 +61,5 @@ void	VA3DTexctrlwin_Apply_handler(GtkWidget *widget,gpointer user_data)
 	}
 
 */
-	gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window,NULL,TRUE);
+	gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window, NULL, TRUE);
 }

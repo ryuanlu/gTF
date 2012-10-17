@@ -11,12 +11,12 @@ typedef	struct
 
 typedef	struct
 {
-	int			number_of_nodes;
-	int			buffer_size;
-	int			min_dim;
-	int			min_diff;
-	int			max_depth;
-	ikdtree_node*		node;
+	int		number_of_nodes;
+	int		buffer_size;
+	int		min_dim;
+	int		min_diff;
+	int		max_depth;
+	ikdtree_node*	node;
 }ikdtree;
 
 

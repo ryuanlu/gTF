@@ -1,12 +1,11 @@
-#include	<stdlib.h>
-#include	<memory.h>
-
-#include	"gTF.h"
-#include	"glext.h"
-#include	"mainwin.h"
-#include	"aa3Dtexwin.h"
-
-#include	"aa3Dtexctrlwin.h"
+#include <stdlib.h>
+#include <memory.h>
+#include "intl.h"
+#include "gTF.h"
+#include "glext.h"
+#include "mainwin.h"
+#include "aa3Dtexwin.h"
+#include "aa3Dtexctrlwin.h"
 
 
 strAA3DTexctrlwin	AA3DTexctrlwin;
@@ -52,8 +51,7 @@ void	tfSetupAA3DTexctrlwin(void)
 
 void	AA3DTexctrlwin_Apply_handler(GtkWidget *widget,gpointer user_data)
 {
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
-
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 	AA3DTexwin.density=gtk_spin_button_get_value(GTK_SPIN_BUTTON(AA3DTexctrlwin.slice));
 
 /*

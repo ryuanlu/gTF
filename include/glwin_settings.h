@@ -2,31 +2,27 @@
 #define GLWIN_SETTINGS_H_
 
 
-#include	"glwin.h"
+#include "glwin.h"
 
 typedef struct
 {
-	GtkWidget*		window;
-	GLWin*			target;
-	GtkWidget*		icon;
+	GtkWidget*	window;
+	GLWin*		target;
+	GtkWidget*	icon;
 
-	GtkWidget*		exp_entry;
-	GtkWidget*		fov_entry;
+	GtkWidget*	exp_entry;
+	GtkWidget*	fov_entry;
 
-	GtkWidget*		apply_button;
-	GtkWidget*		close_button;
+	GtkWidget*	apply_button;
+	GtkWidget*	close_button;
 
-	GtkWidget*		background;
-	GtkWidget*		light_color[3];
-	GtkWidget*		material_color[3];
+	GtkWidget*	background;
+	GtkWidget*	light_color[3];
+	GtkWidget*	material_color[3];
 
-	GtkWidget*		table;
+	GtkWidget*	table;
 
-	GdkGLContext*		glrc;
-	GdkGLDrawable*	gldrawable;
-
-
-	int			render_flag;
+	int		render_flag;
 
 }GLWin_settings;
 

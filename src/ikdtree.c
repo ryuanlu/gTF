@@ -1,5 +1,5 @@
-#include	<math.h>
-#include	"ikdtree.h"
+#include <math.h>
+#include "ikdtree.h"
 
 ikdtree*	IKDtree_new_from_volume(DATA* data,int max_depth,int min_dim,int min_diff)
 {

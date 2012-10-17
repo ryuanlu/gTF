@@ -1,15 +1,14 @@
 //	Transfer Function
 //
 
-#include	<stdlib.h>
-#include	<memory.h>
-#include	<string.h>
-#include	<math.h>
-#include	"inf.l.h"
-#include	"inf.y.h"
-#include	"ikdtree.h"
-
-#include	"data.h"
+#include <stdlib.h>
+#include <memory.h>
+#include <string.h>
+#include <math.h>
+#include "inf.l.h"
+#include "inf.y.h"
+#include "ikdtree.h"
+#include "data.h"
 
 
 

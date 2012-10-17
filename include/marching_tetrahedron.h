@@ -2,10 +2,10 @@
 #define MARCHING_TETRAHEDRON_H_
 
 
-#include	"data.h"
+#include "data.h"
 
-#define		ISOSURFACE_OK				(0x00)
-#define		ISOSURFACE_ERROR_INVALID_VOLUME_DATA	(0x01)
+#define	ISOSURFACE_OK				(0x00)
+#define	ISOSURFACE_ERROR_INVALID_VOLUME_DATA	(0x01)
 
 
 //	Isosurface_extraction

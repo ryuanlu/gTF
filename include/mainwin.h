@@ -1,30 +1,30 @@
 #ifndef MAINWIN_H_
 #define MAINWIN_H_
 
-#include	<gtk/gtk.h>
-#include	"gTF.h"
+#include <gtk/gtk.h>
+#include "gTF.h"
 
 typedef struct
 {
 	//	GTK widgets
 
-	GtkWidget*		window;
-	GtkWidget*		vbox;
+	GtkWidget*	window;
+	GtkWidget*	vbox;
 
-	GdkPixbuf*		icon;
-	int			n_frame;
-	GtkWidget*		tf_selector;
-	GtkWidget*		frame[NUMBER_OF_TF];
+	GdkPixbuf*	icon;
+	int		n_frame;
+	GtkWidget*	tf_selector;
+	GtkWidget*	frame[NUMBER_OF_TF];
 
-	GtkWidget*		view_menuitem[5];
-	GtkWidget*		ikdtree_menuitem;
+	GtkWidget*	view_menuitem[5];
+	GtkWidget*	ikdtree_menuitem;
 
-	GtkWidget*		opendialog;
-	GtkWidget*		errordialog;
-	GtkWidget*		about;
+	GtkWidget*	opendialog;
+	GtkWidget*	errordialog;
+	GtkWidget*	about;
 
 
-	GtkListStore*		tflist;
+	GtkListStore*	tflist;
 
 
 }strMainwin;

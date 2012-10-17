@@ -1,17 +1,13 @@
-#include	<stdlib.h>
-#include	<memory.h>
-#include	<math.h>
-
-#include	"gTF.h"
-#include	"glext.h"
-#include	"aa2Dslicewin.h"
-#include	"aa3Dtexwin.h"
-#include	"va3Dtexwin.h"
-#include	"mainwin.h"
-
-#include	"etf2d.h"
-#include	"tfaux.h"
-#include	"util.h"
+#include <stdlib.h>
+#include <memory.h>
+#include <math.h>
+#include "intl.h"
+#include "glext.h"
+#include "tfaux.h"
+#include "aa3Dtexwin.h"
+#include "mainwin.h"
+#include "etf2d.h"
+#include "util.h"
 
 strETF2Dpanel	ETF2Dpanel;
 
@@ -224,9 +220,7 @@ void	tfCreateETF2Dpanel(int i)
 
 void	tfSetupETF2Dpanel(void)
 {
-	GdkGLConfig	*glconfig;
 	int		shader;
-
 
 	gtk_range_set_value(GTK_RANGE(ETF2Dpanel.opacity_h),255.0);
 	gtk_range_set_value(GTK_RANGE(ETF2Dpanel.opacity_v),255.0);
@@ -235,15 +229,9 @@ void	tfSetupETF2Dpanel(void)
 
 	//	Create OpenGL canvas
 
-	glconfig=gdk_gl_config_new_by_mode (GDK_GL_MODE_RGB|GDK_GL_MODE_DEPTH|GDK_GL_MODE_DOUBLE);
-	gtk_widget_set_gl_capability(GTK_WIDGET(ETF2Dpanel.hdisplay),glconfig,gtftable.sharedrc,TRUE,GDK_GL_RGBA_TYPE);
-
-	gtk_widget_realize(ETF2Dpanel.hdisplay);
-
-	ETF2Dpanel.glrc=gtk_widget_get_gl_context(ETF2Dpanel.hdisplay);
-	ETF2Dpanel.gldrawable=gtk_widget_get_gl_drawable(ETF2Dpanel.hdisplay);
-
-	gdk_gl_drawable_make_current(ETF2Dpanel.gldrawable,ETF2Dpanel.glrc);
+	ETF2Dpanel.glcanvas = gtk_glcanvas_new(ETF2Dpanel.hdisplay, gtftable.sharedrc);
+	//gtk_widget_realize(ETF2Dpanel.hdisplay);
+	glcanvas_make_current(ETF2Dpanel.glcanvas, NULL);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -289,7 +277,7 @@ void	ETF2D_init(void)
 	gtk_spin_button_set_range(GTK_SPIN_BUTTON(ETF2Dpanel.select_value[1]),gtftable.data->vmin,gtftable.data->vmax);
 
 
-	gdk_gl_drawable_make_current(ETF2Dpanel.gldrawable,ETF2Dpanel.glrc);
+	glcanvas_make_current(ETF2Dpanel.glcanvas, NULL);
 
 	glViewport(0,0,512,281);
 
@@ -342,7 +330,7 @@ void	ETF2D_init(void)
 void	ETF2D_release(void)
 {
 	if(!gtftable.data) return;
-	gdk_gl_drawable_make_current(ETF2Dpanel.gldrawable,ETF2Dpanel.glrc);
+	glcanvas_make_current(ETF2Dpanel.glcanvas, NULL);
 	glDeleteTextures(1,&ETF2Dpanel.histogram_texobj);
 	glDeleteTextures(1,&ETF2Dpanel.colormap_texobj);
 	glDeleteTextures(1,&ETF2Dpanel.opacity_texobj);
@@ -368,7 +356,7 @@ void	ETF2D_InitAA2Dslice(void)
 
 void	ETF2D_InitAA3Dtex(void)
 {
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
 	glUniform1f(ETF2Dpanel.AA3Dtexloc.coefloc,65535.0/(gtftable.data->vmax-gtftable.data->vmin));
 	glUniform1f(ETF2Dpanel.AA3Dtexloc.shiftloc,(double)gtftable.data->vmin/(double)(gtftable.data->vmax-gtftable.data->vmin));
@@ -407,7 +395,7 @@ void	ETF2D_InitAA3Dtex(void)
 
 void	ETF2D_InitVA3Dtex(void)
 {
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
 	glUniform1iv(ETF2Dpanel.VA3Dtexvsloc.sequenceloc,64,va3Dtex_nsequence);
 	glUniform1iv(ETF2Dpanel.VA3Dtexvsloc.valoc,24,va3Dtex_va);
@@ -475,13 +463,13 @@ int	ETF2Dpanel_hdisplay_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 {
 	int	m,n,i;
 
-	gdk_gl_drawable_make_current(ETF2Dpanel.gldrawable,ETF2Dpanel.glrc);
+	glcanvas_make_current(ETF2Dpanel.glcanvas, NULL);
 
 	//	No volume loaded, return
 	if(!gtftable.data)
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		gdk_gl_drawable_swap_buffers(ETF2Dpanel.gldrawable);
+		glcanvas_swap_buffers(ETF2Dpanel.glcanvas);
 		return TRUE;
 	}
 
@@ -603,7 +591,7 @@ int	ETF2Dpanel_hdisplay_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 	}
 
 	glColor3f(1.0,1.0,1.0);
-	gdk_gl_drawable_swap_buffers(ETF2Dpanel.gldrawable);
+	glcanvas_swap_buffers(ETF2Dpanel.glcanvas);
 
 	return FALSE;
 }
@@ -617,8 +605,7 @@ void	ETF2Dpanel_UpdateTexture(void)
 	//	Update textures for display
 
 	getRGBfromColormap(ETF2Dpanel.colormap,TF2D_TEXTURE_WIDTH,ETF2Dpanel.colormaptex);
-
-	gdk_gl_drawable_make_current(ETF2Dpanel.gldrawable,ETF2Dpanel.glrc);
+	glcanvas_make_current(ETF2Dpanel.glcanvas, NULL);
 
 	glBindTexture(GL_TEXTURE_1D,ETF2Dpanel.colormap_texobj);
 	glTexSubImage1D(GL_TEXTURE_1D,0,0,TF2D_TEXTURE_WIDTH,GL_RGB,GL_UNSIGNED_BYTE,ETF2Dpanel.colormaptex);

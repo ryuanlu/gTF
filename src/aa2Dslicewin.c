@@ -1,13 +1,12 @@
-#include	<stdlib.h>
-#include	<memory.h>
-#include	"gTF.h"
-#include	"glext.h"
-#include	"mainwin.h"
-#include	"util.h"
-
-#include	"etf1d.h"
-
-#include	"aa2Dslicewin.h"
+#include <stdlib.h>
+#include <memory.h>
+#include "intl.h"
+#include "gTF.h"
+#include "glext.h"
+#include "mainwin.h"
+#include "util.h"
+#include "etf1d.h"
+#include "aa2Dslicewin.h"
 
 strAA2DSlicewin	AA2DSlicewin;
 
@@ -18,7 +17,7 @@ void	tfCreateAA2DSlicewin(void)
 
 	AA2DSlicewin.vbox[0]=gtk_vbox_new(FALSE,0);
 	AA2DSlicewin.hbox[0]=gtk_hbox_new(FALSE,0);
-	AA2DSlicewin.glcanvas=gtk_drawing_area_new();
+	AA2DSlicewin.canvas=gtk_drawing_area_new();
 
 	AA2DSlicewin.axis=gtk_combo_box_new_text();
 
@@ -34,7 +33,7 @@ void	tfCreateAA2DSlicewin(void)
 	gtk_box_pack_start(GTK_BOX(AA2DSlicewin.hbox[0]),AA2DSlicewin.axis,0,0,5);
 	gtk_box_pack_start(GTK_BOX(AA2DSlicewin.hbox[0]),AA2DSlicewin.slice,0,0,5);
 
-	gtk_box_pack_start(GTK_BOX(AA2DSlicewin.vbox[0]),AA2DSlicewin.glcanvas,1,1,0);
+	gtk_box_pack_start(GTK_BOX(AA2DSlicewin.vbox[0]),AA2DSlicewin.canvas,1,1,0);
 	gtk_box_pack_end(GTK_BOX(AA2DSlicewin.vbox[0]),AA2DSlicewin.hbox[0],0,0,2);
 
 
@@ -44,20 +43,18 @@ void	tfCreateAA2DSlicewin(void)
 
 void	tfSetupAA2DSlicewin(void)
 {
-	GdkGLConfig	*glconfig;
-
 	//	Window properties
 
 	gtk_window_set_title(GTK_WINDOW(AA2DSlicewin.window),_("Axis aligned 2D slice image"));
-	gtk_widget_set_events(AA2DSlicewin.glcanvas,GDK_EXPOSURE_MASK);
-	gtk_widget_set_size_request(AA2DSlicewin.glcanvas,512,512);
+	gtk_widget_set_events(AA2DSlicewin.canvas,GDK_EXPOSURE_MASK);
+	gtk_widget_set_size_request(AA2DSlicewin.canvas,512,512);
 
 	gtk_combo_box_set_active(GTK_COMBO_BOX(AA2DSlicewin.axis),0);
 	//gtk_widget_set_sensitive(AA2DSlicewin.axis,FALSE);
 	gtk_window_set_icon(GTK_WINDOW(AA2DSlicewin.window),Mainwin.icon);
 
 
-	g_signal_connect(GTK_OBJECT(AA2DSlicewin.glcanvas),"expose-event",G_CALLBACK(AA2DSlicewin_glcanvas_handler),NULL);
+	g_signal_connect(GTK_OBJECT(AA2DSlicewin.canvas),"expose-event",G_CALLBACK(AA2DSlicewin_glcanvas_handler),NULL);
 	g_signal_connect(GTK_OBJECT(AA2DSlicewin.window),"delete-event",G_CALLBACK(AA2DSlicewin_Close_handler),NULL);
 	g_signal_connect(GTK_OBJECT(AA2DSlicewin.slice),"value-changed",G_CALLBACK(AA2DSlicewin_SliceSelect),NULL);
 	g_signal_connect(GTK_OBJECT(AA2DSlicewin.axis),"changed",G_CALLBACK(AA2DSlicewin_AxisSelect),NULL);
@@ -65,16 +62,11 @@ void	tfSetupAA2DSlicewin(void)
 
 	//	Initialize the OpenGL window
 
-	glconfig=gdk_gl_config_new_by_mode (GDK_GL_MODE_RGB|GDK_GL_MODE_DEPTH|GDK_GL_MODE_DOUBLE);
-	gtk_widget_set_gl_capability(AA2DSlicewin.glcanvas,glconfig,gtftable.sharedrc,TRUE,GDK_GL_RGBA_TYPE);
+	AA2DSlicewin.glcanvas = gtk_glcanvas_new(AA2DSlicewin.canvas, gtftable.sharedrc);
 
-	gtk_widget_realize(AA2DSlicewin.glcanvas);
+	gtk_widget_realize(AA2DSlicewin.canvas);
 
-	AA2DSlicewin.glrc=gtk_widget_get_gl_context(AA2DSlicewin.glcanvas);
-	AA2DSlicewin.gldrawable=gtk_widget_get_gl_drawable(AA2DSlicewin.glcanvas);
-
-
-	gdk_gl_drawable_make_current(AA2DSlicewin.gldrawable,AA2DSlicewin.glrc);
+	glcanvas_make_current(AA2DSlicewin.glcanvas, NULL);
 
 #ifdef	__WIN32__
 
@@ -95,11 +87,11 @@ int	AA2DSlicewin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer us
 	float s;
 	int a;
 
-	gdk_gl_drawable_make_current(AA2DSlicewin.gldrawable,AA2DSlicewin.glrc);
+	glcanvas_make_current(AA2DSlicewin.glcanvas, NULL);
 
 	if(!AA2DSlicewin.render_flag)
 	{
-		gdk_gl_drawable_swap_buffers(AA2DSlicewin.gldrawable);
+		glcanvas_swap_buffers(AA2DSlicewin.glcanvas);
 
 		return FALSE;
 	}
@@ -109,7 +101,7 @@ int	AA2DSlicewin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer us
 
 
 
-	glViewport(0,0,AA2DSlicewin.glcanvas->allocation.width,AA2DSlicewin.glcanvas->allocation.height);
+	glViewport(0,0,AA2DSlicewin.canvas->allocation.width,AA2DSlicewin.canvas->allocation.height);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -159,8 +151,7 @@ int	AA2DSlicewin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer us
 		break;
 	}
 
-
-	gdk_gl_drawable_swap_buffers(AA2DSlicewin.gldrawable);
+	glcanvas_swap_buffers(AA2DSlicewin.glcanvas);
 
 	return FALSE;
 }
@@ -174,7 +165,7 @@ void	AA2DSlicewin_Close_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 
 void	AA2DSlicewin_SliceSelect(GtkWidget *widget,gpointer user_data)
 {
-	gdk_window_invalidate_rect(AA2DSlicewin.window->window,NULL,TRUE);
+	gdk_window_invalidate_rect(AA2DSlicewin.window->window, NULL, TRUE);
 
 }
 
@@ -187,26 +178,26 @@ void	AA2DSlicewin_AxisSelect(GtkWidget *widget,gpointer user_data)
 	switch(a)
 	{
 		case 0:
-			gtk_widget_set_size_request(AA2DSlicewin.glcanvas,gtftable.data->m_resol[0],gtftable.data->m_resol[1]);
+			gtk_widget_set_size_request(AA2DSlicewin.canvas,gtftable.data->m_resol[0],gtftable.data->m_resol[1]);
 			gtk_spin_button_set_range(GTK_SPIN_BUTTON(AA2DSlicewin.slice),1,gtftable.data->resol[2]);
 		break;
 		case 1:
-			gtk_widget_set_size_request(AA2DSlicewin.glcanvas,gtftable.data->m_resol[2],gtftable.data->m_resol[0]);
+			gtk_widget_set_size_request(AA2DSlicewin.canvas,gtftable.data->m_resol[2],gtftable.data->m_resol[0]);
 			gtk_spin_button_set_range(GTK_SPIN_BUTTON(AA2DSlicewin.slice),1,gtftable.data->resol[1]);
 		break;
 		case 2:
-			gtk_widget_set_size_request(AA2DSlicewin.glcanvas,gtftable.data->m_resol[1],gtftable.data->m_resol[2]);
+			gtk_widget_set_size_request(AA2DSlicewin.canvas,gtftable.data->m_resol[1],gtftable.data->m_resol[2]);
 			gtk_spin_button_set_range(GTK_SPIN_BUTTON(AA2DSlicewin.slice),1,gtftable.data->resol[0]);
 		break;
 	}
-	gdk_window_invalidate_rect(AA2DSlicewin.window->window,NULL,TRUE);
+	gdk_window_invalidate_rect(AA2DSlicewin.window->window, NULL, TRUE);
 }
 
 void	AA2DSlicewin_Release(void)
 {
 	if(AA2DSlicewin.render_flag)
 	{
-		gdk_gl_drawable_make_current(AA2DSlicewin.gldrawable,AA2DSlicewin.glrc);
+		glcanvas_make_current(AA2DSlicewin.glcanvas, NULL);
 
 		if(gtftable.AA2Dslice_release[gtftable.current_tf])
 			gtftable.AA2Dslice_release[gtftable.current_tf]();

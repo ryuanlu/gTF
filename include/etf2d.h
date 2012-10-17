@@ -1,9 +1,9 @@
 #ifndef ETF2D_H_
 #define ETF2D_H_
 
-#include	<gtk/gtk.h>
-#include	<gtk/gtkgl.h>
-#include	"va3Dtexwin.h"
+#include <gtk/gtk.h>
+#include "gtk_glcanvas.h"
+#include "va3Dtexwin.h"
 
 #define	TF2D_TEXTURE_WIDTH		(2048)
 #define	TF2D_TEXTURE_HEIGHT		(2048)
@@ -38,6 +38,7 @@ typedef struct
 	int	id;
 
 	GtkWidget*	hdisplay;
+	GtkGLCanvas	glcanvas;
 	GtkWidget*	vbox;
 
 	GtkWidget*	vmax;
@@ -87,12 +88,6 @@ typedef struct
 	hCMAP*		colormap;
 	unsigned char*	colormaptex;
 	unsigned int	colormap_texobj;
-
-	//	OpenGL involved
-
-	GdkGLContext*	glrc;
-	GdkGLDrawable*	gldrawable;
-
 
 	ETF2D_3Dtexloc	AA3Dtexloc;
 	ETF2D_3Dtexloc	VA3Dtexloc;

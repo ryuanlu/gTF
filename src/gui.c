@@ -1,18 +1,17 @@
-#include	"mainwin.h"
-#include	"propertieswin.h"
-#include	"aa2Dslicewin.h"
-#include	"aa3Dtexwin.h"
-#include	"aa3Dtexctrlwin.h"
-#include	"va3Dtexwin.h"
-#include	"va3Dtexctrlwin.h"
-#include	"isosurfacewin.h"
-#include	"isosurfacectrlwin.h"
-
-#include	"etf1d.h"
-#include	"etf2d.h"
-
-#include	"gui.h"
-#include	"glext.h"
+#include "intl.h"
+#include "mainwin.h"
+#include "propertieswin.h"
+#include "aa2Dslicewin.h"
+#include "aa3Dtexwin.h"
+#include "aa3Dtexctrlwin.h"
+#include "va3Dtexwin.h"
+#include "va3Dtexctrlwin.h"
+#include "isosurfacewin.h"
+#include "isosurfacectrlwin.h"
+#include "etf1d.h"
+#include "etf2d.h"
+#include "gui.h"
+#include "glext.h"
 
 void	tfSetupGUI(void)
 {

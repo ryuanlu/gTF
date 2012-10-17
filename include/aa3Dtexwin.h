@@ -1,28 +1,28 @@
 #ifndef AA3DTEXWIN_H_
 #define AA3DTEXWIN_H_
 
-#include	"glwin.h"
+#include "glwin.h"
 
 
-#define	AA3DTEXWIN_DEFAULT_DISTANCE		(300)
+#define	AA3DTEXWIN_DEFAULT_DISTANCE	(300)
 
 
 typedef struct
 {
-	GLWin*			glwin;
+	GLWin*		glwin;
 
-	GtkWidget*		icon;
-	GtkWidget*		menuitem[2];
+	GtkWidget*	icon;
+	GtkWidget*	menuitem[2];
 
-	int			progobj;
-	int			shader[2];
-	int			displaylist;
+	int		progobj;
+	int		shader[2];
+	int		displaylist;
 
-	int			prev_pos[2];
-	int			move;
-	float			offset;
+	int		prev_pos[2];
+	int		move;
+	float		offset;
 
-	float			density;
+	float		density;
 
 }strAA3DTexwin;
 

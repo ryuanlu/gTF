@@ -1,14 +1,14 @@
 #ifndef AA3DTEXCTRLWIN_H_
 #define AA3DTEXCTRLWIN_H_
 
-#include	<gtk/gtk.h>
-#include	"glwin_settings.h"
+#include <gtk/gtk.h>
+#include "glwin_settings.h"
 
 
 typedef struct
 {
-	GtkWidget*		frame;
-	GtkWidget*		slice;
+	GtkWidget*	frame;
+	GtkWidget*	slice;
 
 	GLWin_settings*	settings;
 

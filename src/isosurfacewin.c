@@ -1,16 +1,13 @@
-#include	"isosurfacewin.h"
-#include	"isosurfacectrlwin.h"
-#include	"marching_tetrahedron.h"
-
-#include	"glext.h"
-#include	"gTF.h"
-#include	"util.h"
-
-#include	"mainwin.h"
-
-#include	<stdlib.h>
-#include	<memory.h>
-#include	<math.h>
+#include <stdlib.h>
+#include <memory.h>
+#include <math.h>
+#include "intl.h"
+#include "glext.h"
+#include "util.h"
+#include "isosurfacewin.h"
+#include "isosurfacectrlwin.h"
+#include "marching_tetrahedron.h"
+#include "mainwin.h"
 
 
 strIsosurfacewin	Isosurfacewin;
@@ -57,11 +54,11 @@ void	tfSetupIsosurfacewin(void)
 	//	Signal connections
 
 	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->window),"delete-event",G_CALLBACK(Isosurfacewin_Close_handler),NULL);
-	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->glcanvas),"expose-event",G_CALLBACK(Isosurfacewin_glcanvas_handler),NULL);
-	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->glcanvas),"button-press-event",G_CALLBACK(Isosurfacewin_ButtonDown_handler),NULL);
-	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->glcanvas),"button-release-event",G_CALLBACK(Isosurfacewin_ButtonUp_handler),NULL);
-	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->glcanvas),"motion-notify-event",G_CALLBACK(Isosurfacewin_MouseMotion_handler),NULL);
-	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->glcanvas),"scroll-event",G_CALLBACK(Isosurfacewin_MouseWheel_handler),NULL);
+	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->canvas),"expose-event",G_CALLBACK(Isosurfacewin_glcanvas_handler),NULL);
+	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->canvas),"button-press-event",G_CALLBACK(Isosurfacewin_ButtonDown_handler),NULL);
+	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->canvas),"button-release-event",G_CALLBACK(Isosurfacewin_ButtonUp_handler),NULL);
+	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->canvas),"motion-notify-event",G_CALLBACK(Isosurfacewin_MouseMotion_handler),NULL);
+	g_signal_connect(GTK_OBJECT(Isosurfacewin.glwin->canvas),"scroll-event",G_CALLBACK(Isosurfacewin_MouseWheel_handler),NULL);
 	g_signal_connect(G_OBJECT(Isosurfacewin.menuitem[0]),"activate",G_CALLBACK(Isosurfacewin_Menu_handler),NULL);
 	g_signal_connect(G_OBJECT(Isosurfacewin.menuitem[1]),"activate",G_CALLBACK(Isosurfacewin_Menu_handler),NULL);
 	g_signal_connect(G_OBJECT(Isosurfacewin.menuitem[2]),"activate",G_CALLBACK(Isosurfacewin_Menu_handler),NULL);
@@ -69,12 +66,13 @@ void	tfSetupIsosurfacewin(void)
 
 	//	OpenGL initial state
 
-	gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 
 	//	Load Shader
 
-	gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 	Isosurfacewin.progobj=glCreateProgram();
 
@@ -140,7 +138,7 @@ int	Isosurfacewin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer u
 	//float	x,y,z;
 	gtk_window_get_size(GTK_WINDOW(Isosurfacewin.glwin->window),&x,&y);
 
-	gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glViewport(0,0,x,y);
@@ -181,8 +179,7 @@ int	Isosurfacewin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer u
 	}
 	glPopMatrix();
 
-	gdk_gl_drawable_swap_buffers(Isosurfacewin.glwin->gldrawable);
-
+	glcanvas_swap_buffers(Isosurfacewin.glwin->glcanvas);
 	return FALSE;
 }
 
@@ -262,7 +259,7 @@ int	Isosurfacewin_MouseMotion_handler(GtkWidget *widget, GdkEventMotion *event,g
 	Isosurfacewin.prev_pos[0]=event->x;
 	Isosurfacewin.prev_pos[1]=event->y;
 
-	gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
         glGetFloatv(GL_MODELVIEW_MATRIX,M);
         glLoadIdentity();
@@ -298,7 +295,7 @@ int	Isosurfacewin_MouseWheel_handler(GtkWidget *widget, GdkEventScroll *event,gp
 
 	//	Do zoom in / zoom out.
 
-	gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 	dir=event->direction ? 10:-10;
 
@@ -321,7 +318,7 @@ void	Isosurfacewin_Release(void)
 	{
 		//	Release vertex buffer & display list.
 
-		gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+		glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 		Isosurface_release();
 		glDeleteLists(Isosurfacewin.displaylist,Isosurface_get_used_pagesize());
 		Isosurfacewin.glwin->render_flag=FALSE;
@@ -332,7 +329,7 @@ void	Isosurfacewin_Release(void)
 void	Isosurfacewin_Init(void)
 {
 	if(!gtftable.data) return;
-	gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_3D,gtftable.gradient_tex);

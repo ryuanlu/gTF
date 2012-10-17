@@ -1,16 +1,13 @@
-#include	<stdlib.h>
-#include	<memory.h>
-#include	<math.h>
-
-#include	"glext.h"
-
-#include	"util.h"
-#include	"mainwin.h"
-#include	"glwin.h"
-#include	"etf1d.h"
-#include	"va3Dtexctrlwin.h"
-
-#include	"va3Dtexwin.h"
+#include <stdlib.h>
+#include <memory.h>
+#include <math.h>
+#include "intl.h"
+#include "glext.h"
+#include "util.h"
+#include "mainwin.h"
+#include "glwin.h"
+#include "va3Dtexctrlwin.h"
+#include "va3Dtexwin.h"
 
 
 strVA3DTexwin	VA3DTexwin;
@@ -59,7 +56,7 @@ void	tfCreateVA3DTexwin(void)
 	memset(&VA3DTexwin,0,sizeof(strVA3DTexwin));
 	textdomain("gtf");
 	VA3DTexwin.glwin=GLWin_new("Volume Rendering - View aligned 3D texture",gtftable.sharedrc);
-	gtftable.sharedrc=VA3DTexwin.glwin->glrc;
+	gtftable.sharedrc=glcanvas_get_render_context(VA3DTexwin.glwin->glcanvas);
 	VA3DTexwin.menuitem[0]=gtk_image_menu_item_new_with_label(_("Settings"));
 	VA3DTexwin.menuitem[1]=gtk_check_menu_item_new_with_label(_("Draw bounding box"));
 	VA3DTexwin.icon=gtk_image_new();
@@ -83,17 +80,17 @@ void	tfSetupVA3DTexwin(void)
 
 	//	Signal connections
 
-	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->glcanvas),"expose-event",G_CALLBACK(VA3DTexwin_glcanvas_handler),VA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->glcanvas),"button-press-event",G_CALLBACK(VA3DTexwin_ButtonDown_handler),VA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->glcanvas),"button-release-event",G_CALLBACK(VA3DTexwin_ButtonUp_handler),VA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->glcanvas),"motion-notify-event",G_CALLBACK(VA3DTexwin_MouseMotion_handler),VA3DTexwin.glwin);
-	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->glcanvas),"scroll-event",G_CALLBACK(VA3DTexwin_MouseWheel_handler),VA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->canvas),"expose-event",G_CALLBACK(VA3DTexwin_glcanvas_handler),VA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->canvas),"button-press-event",G_CALLBACK(VA3DTexwin_ButtonDown_handler),VA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->canvas),"button-release-event",G_CALLBACK(VA3DTexwin_ButtonUp_handler),VA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->canvas),"motion-notify-event",G_CALLBACK(VA3DTexwin_MouseMotion_handler),VA3DTexwin.glwin);
+	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->canvas),"scroll-event",G_CALLBACK(VA3DTexwin_MouseWheel_handler),VA3DTexwin.glwin);
 	g_signal_connect(G_OBJECT(VA3DTexwin.glwin->window),"delete-event",G_CALLBACK(VA3DTexwin_Close_handler),NULL);
 	g_signal_connect(G_OBJECT(VA3DTexwin.menuitem[0]),"activate",G_CALLBACK(VA3DTexwin_Menu_handler),NULL);
 	g_signal_connect(G_OBJECT(VA3DTexwin.menuitem[1]),"activate",G_CALLBACK(VA3DTexwin_Menu_handler),NULL);
 
 
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
 
 	//	GL initial state
@@ -142,7 +139,7 @@ int	VA3DTexwin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 	gtk_window_get_size(GTK_WINDOW(VA3DTexwin.glwin->window),&x,&y);
 
 
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glViewport(0,0,x,y);
 	glMatrixMode(GL_PROJECTION);
@@ -152,7 +149,7 @@ int	VA3DTexwin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 
 	if(!VA3DTexwin.glwin->render_flag)
 	{
-		gdk_gl_drawable_swap_buffers(VA3DTexwin.glwin->gldrawable);
+		glcanvas_swap_buffers(VA3DTexwin.glwin->glcanvas);
 
 		return FALSE;
 	}
@@ -230,7 +227,8 @@ int	VA3DTexwin_glcanvas_handler(GtkWidget *widget, GdkEvent *event,gpointer user
 	}
 	glPopMatrix();
 
-	gdk_gl_drawable_swap_buffers(VA3DTexwin.glwin->gldrawable);
+	glcanvas_swap_buffers(VA3DTexwin.glwin->glcanvas);
+
 	return FALSE;
 }
 
@@ -264,7 +262,7 @@ int	VA3DTexwin_MouseMotion_handler(GtkWidget *widget, GdkEventMotion *event,gpoi
 	VA3DTexwin.prev_pos[0]=event->x;
 	VA3DTexwin.prev_pos[1]=event->y;
 
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
         glGetFloatv(GL_MODELVIEW_MATRIX,M);
         glLoadIdentity();
@@ -276,7 +274,7 @@ int	VA3DTexwin_MouseMotion_handler(GtkWidget *widget, GdkEventMotion *event,gpoi
         glMultMatrixf(M);
 
 
-	gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window,NULL,TRUE);
+        gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window, NULL, TRUE);
 
 	return FALSE;
 }
@@ -310,7 +308,7 @@ int	VA3DTexwin_MouseWheel_handler(GtkWidget *widget, GdkEventScroll *event,gpoin
 	float M[16];
 
 	if(!VA3DTexwin.glwin->render_flag) return FALSE;
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
 	dir=event->direction ? 10:-10;
 
@@ -321,7 +319,7 @@ int	VA3DTexwin_MouseWheel_handler(GtkWidget *widget, GdkEventScroll *event,gpoin
         glTranslatef(0,0,-dir);
         glMultMatrixf(M);
 
-	gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window,NULL,TRUE);
+        gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window, NULL, TRUE);
 	return FALSE;
 }
 
@@ -330,7 +328,7 @@ void	VA3DTexwin_Release(void)
 {
 	if(VA3DTexwin.glwin->render_flag)
 	{
-		gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+		glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
 		if(gtftable.VA3Dtex_release[gtftable.current_tf])
 			gtftable.VA3Dtex_release[gtftable.current_tf]();
@@ -348,7 +346,7 @@ void	VA3DTexwin_Menu_handler(GtkWidget *widget,gpointer user_data)
 	}
 	if(widget==VA3DTexwin.menuitem[1])
 	{
-		gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window,NULL,TRUE);
+		gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window, NULL, TRUE);
 	}
 
 }

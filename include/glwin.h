@@ -2,24 +2,21 @@
 #define GLWIN_H_
 
 #include	<gtk/gtk.h>
-#include	<gtk/gtkgl.h>
-
+#include	"gtk_glcanvas.h"
 
 typedef struct
 {
-	GtkWidget*		window;
-	GtkWidget*		icon;
-	GtkWidget*		glcanvas;
+	GtkWidget*	window;
+	GtkWidget*	icon;
+	GtkWidget*	canvas;
+	GtkGLCanvas	glcanvas;
 
-	GtkWidget*		menu;
-	GtkWidget*		menuitem;
+	GtkWidget*	menu;
+	GtkWidget*	menuitem;
 
-	GdkGLContext*		glrc;
-	GdkGLDrawable*	gldrawable;
+	int		render_flag;
 
-	int			render_flag;
-
-	float			fov;
+	float		fov;
 
 }GLWin;
 
@@ -35,7 +32,7 @@ typedef struct
 //	Returns	:	The pointer of new GLWin object.
 //
 
-GLWin*		GLWin_new(const char* title,GdkGLContext* shared_glrc);
+GLWin*	GLWin_new(const char* title, GLXContext shared_glrc);
 
 G_MODULE_EXPORT	int	GLWin_ButtonDown_handler(GtkWidget *widget,GdkEventButton *event,GLWin* glwin);
 G_MODULE_EXPORT	int	GLWin_PopupMenu_handler(GtkWidget *widget,GLWin* glwin);

@@ -12,12 +12,15 @@ if(PREFIX)
 endif(PREFIX)
 
 
-#	Check libgtkglext-1.0 >= 1.2.0 and set CFLAGS and LDFLAGS
+#	Check libgtk+-2.0 >= 2.12.0 and set CFLAGS and LDFLAGS
 
 include(FindPkgConfig)
-pkg_check_modules(GTKGLEXT REQUIRED gtkglext-1.0>=1.2.0)
-string(REPLACE ";" " " GTKGLEXT_CFLAGS "${GTKGLEXT_CFLAGS}")
-string(REPLACE ";" " " GTKGLEXT_LDFLAGS "${GTKGLEXT_LDFLAGS}")
+pkg_check_modules(GTK2 REQUIRED gtk+-2.0>=2.12.0)
+string(REPLACE ";" " " GTK2_CFLAGS "${GTK2_CFLAGS}")
+string(REPLACE ";" " " GTK2_LDFLAGS "${GTK2_LDFLAGS}")
+set(GTK2_CFLAGS "${GTK2_CFLAGS} -Wall")
+set(GTK2_LDFLAGS "${GTK2_LDFLAGS} -lGL -lGLU")
+
 
 
 #	Add subdirectories

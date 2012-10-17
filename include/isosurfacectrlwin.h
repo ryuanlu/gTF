@@ -2,18 +2,18 @@
 #define ISOSURFACECTRLWIN_H_
 
 
-#include	<gtk/gtk.h>
-#include	"glwin_settings.h"
+#include <gtk/gtk.h>
+#include "glwin_settings.h"
 
 
 typedef struct
 {
-	GtkWidget*		window;
-	GtkWidget*		frame;
+	GtkWidget*	window;
+	GtkWidget*	frame;
 
-	float			iso_value;
-	GtkWidget*		value;
-	GtkWidget*		usage;
+	float		iso_value;
+	GtkWidget*	value;
+	GtkWidget*	usage;
 
 	GLWin_settings*	settings;
 

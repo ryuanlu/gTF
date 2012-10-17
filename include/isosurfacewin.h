@@ -2,31 +2,31 @@
 #define ISOSURFACEWIN_H_
 
 
-#include	<gtk/gtk.h>
-#include	"glwin.h"
+#include <gtk/gtk.h>
+#include "glwin.h"
 
 
 #define		ISOSURFACEWIN_DEFAULT_DISTANCE	(300)
 
 typedef struct
 {
-	GLWin*			glwin;
-	GtkWidget*		icon;
+	GLWin*		glwin;
+	GtkWidget*	icon;
 
-	GtkWidget*		menuitem[3];
+	GtkWidget*	menuitem[3];
 
-	int			prev_pos[2];
-	int			move;
-	float			offset;
+	int		prev_pos[2];
+	int		move;
+	float		offset;
 
-	int			progobj;
-	int			shader[2];
-	int			displaylist;
+	int		progobj;
+	int		shader[2];
+	int		displaylist;
 
-	int			page_size;
+	int		page_size;
 
-	int			normalloc;
-	int			resolloc;
+	int		normalloc;
+	int		resolloc;
 
 }strIsosurfacewin;
 

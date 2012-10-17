@@ -1,5 +1,5 @@
-#include	<stdlib.h>
-#include	"tfaux.h"
+#include <stdlib.h>
+#include "tfaux.h"
 
 
 

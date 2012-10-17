@@ -1,12 +1,11 @@
-#include	"isosurfacectrlwin.h"
-#include	"isosurfacewin.h"
-#include	"marching_tetrahedron.h"
-
-#include	"glext.h"
-#include	"mainwin.h"
-
-#include	<stdlib.h>
-#include	<memory.h>
+#include <stdlib.h>
+#include <memory.h>
+#include "isosurfacectrlwin.h"
+#include "isosurfacewin.h"
+#include "marching_tetrahedron.h"
+#include "intl.h"
+#include "glext.h"
+#include "mainwin.h"
 
 
 
@@ -61,7 +60,7 @@ void	Isosurfacectrlwin_Apply_handler(GtkWidget *widget,gpointer user_data)
 
 	if(!gtftable.data)	return;
 
-	gdk_gl_drawable_gl_begin(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+	glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 	if(!Isosurfacewin.glwin->render_flag||i!=Isosurfacectrlwin.iso_value)
 	{
@@ -100,7 +99,7 @@ void	Isosurfacectrlwin_Apply_handler(GtkWidget *widget,gpointer user_data)
 
 		//	Prevent from using wrong RC switched while handling main loop
 
-		gdk_gl_drawable_make_current(Isosurfacewin.glwin->gldrawable,Isosurfacewin.glwin->glrc);
+		glcanvas_make_current(Isosurfacewin.glwin->glcanvas, NULL);
 
 		//	Handle buffer overflowing
 

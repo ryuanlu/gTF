@@ -1,8 +1,7 @@
-#include	<stdlib.h>
-#include	<GL/gl.h>
-
-#include	"mainwin.h"
-#include	"glwin_settings.h"
+#include <stdlib.h>
+#include <GL/gl.h>
+#include "mainwin.h"
+#include "glwin_settings.h"
 
 
 //	GLWin_settings_new
@@ -66,7 +65,7 @@ void	GLWin_settings_apply_handler(GtkWidget *widget,GLWin_settings *glwin_settin
 	GdkColor	gc;
 	float		color[4];
 
-	gdk_gl_drawable_make_current(glwin_settings->target->gldrawable,glwin_settings->target->glrc);
+	glcanvas_make_current(glwin_settings->target->glcanvas, NULL);
 
 	gtk_color_button_get_color(GTK_COLOR_BUTTON(glwin_settings->background),&gc);
 	glClearColor((float)gc.red/65535,(float)gc.green/65535,(float)gc.blue/65535,0.0f);
@@ -117,7 +116,7 @@ void	GLWin_settings_apply_handler(GtkWidget *widget,GLWin_settings *glwin_settin
 	glMatrixMode(GL_PROJECTION);
 	glwin_settings->target->fov=gtk_spin_button_get_value(GTK_SPIN_BUTTON(glwin_settings->fov_entry));;
 
-	gdk_window_invalidate_rect(glwin_settings->target->window->window,NULL,TRUE);
+	gdk_window_invalidate_rect(glwin_settings->target->window->window, NULL, TRUE);
 
 	if(widget) gtk_window_present(GTK_WINDOW(glwin_settings->target->window));
 

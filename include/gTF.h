@@ -1,21 +1,14 @@
 #ifndef GTF_H_
 #define GTF_H_
 
-#include	<libintl.h>
-#include	<gtk/gtkgl.h>
-#include	"data.h"
-#include	"colormap.h"
+#include <GL/glx.h>
+#include "data.h"
+#include "colormap.h"
 
 
 //	Version string
 
-#include	"../version"
-
-
-//	Macro for i18n(gettext)
-
-#define	_(String)	gettext(String)
-
+#include "../version"
 
 //	Number of transfer functions
 
@@ -31,16 +24,16 @@ typedef struct
 	//int	gmax,gmin;
 	int	level;		//	Function value MAX-MIN+1
 
-	GdkGLContext*	sharedrc;
+	GLXContext	sharedrc;
 
 	unsigned int	volume_tex;
 	unsigned int	gradient_tex;
 
 	struct
 	{
-		unsigned int		aa2Dslice;
-		unsigned int		aa3Dtex;
-		unsigned int		va3Dtex;
+		unsigned int	aa2Dslice;
+		unsigned int	aa3Dtex;
+		unsigned int	va3Dtex;
 
 	}shader[NUMBER_OF_TF];
 

@@ -1,8 +1,8 @@
 #ifndef VA3DTEXWIN_H_
 #define VA3DTEXWIN_H_
 
-#include	"glwin.h"
-
+#include "glwin.h"
+#include "gTF.h"
 
 #define	VA3DTEXWIN_DEFAULT_DISTANCE		(300)
 
@@ -20,22 +20,22 @@ typedef struct
 
 typedef struct
 {
-	GLWin*			glwin;
+	GLWin*		glwin;
 
-	GtkWidget*		icon;
-	GtkWidget*		menuitem[2];
+	GtkWidget*	icon;
+	GtkWidget*	menuitem[2];
 
-	int			progobj;
-	int			shader[2];
-	int			displaylist;
+	int		progobj;
+	int		shader[2];
+	int		displaylist;
 
-	int			prev_pos[2];
-	int			move;
-	float			offset;
+	int		prev_pos[2];
+	int		move;
+	float		offset;
 
-	float			density;
+	float		density;
 
-	VA3Dvsloc*		vsloc[NUMBER_OF_TF];
+	VA3Dvsloc*	vsloc[NUMBER_OF_TF];
 
 }strVA3DTexwin;
 

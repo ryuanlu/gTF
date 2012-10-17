@@ -1,16 +1,16 @@
 #ifndef DATA_H_
 #define DATA_H_
 
-#include	<stdio.h>
-#include	"ikdtree_type.h"
+#include <stdio.h>
+#include "ikdtree_type.h"
 
 //	Flag
 
 #define	DATA_FIELD_RAW_FILE		0x00000001
-#define	DATA_FIELD_RESOLUTION	0x00000002
+#define	DATA_FIELD_RESOLUTION		0x00000002
 #define	DATA_FIELD_RATIO		0x00000004
-#define	DATA_FIELD_SAMPLE_TYPE	0x00000008
-#define	DATA_FIELD_BYTE_ORDER	0x00000010
+#define	DATA_FIELD_SAMPLE_TYPE		0x00000008
+#define	DATA_FIELD_BYTE_ORDER		0x00000010
 #define	DATA_FIELD_VALUE_MAX		0x00000020
 #define	DATA_FIELD_VALUE_MIN		0x00000040
 
@@ -26,7 +26,7 @@
 //	Byte order
 
 #define	BYTE_ORDER_LITTLE_ENDIAN	0x00000000
-#define	BYTE_ORDER_BIG_ENDIAN	0x00000001
+#define	BYTE_ORDER_BIG_ENDIAN		0x00000001
 
 
 //	Handle	declaration
@@ -59,7 +59,7 @@ typedef struct
 	int	vmax,vmin;
 
 	unsigned short*	rawdata;
-	ikdtree*		iKDtree;
+	ikdtree*	iKDtree;
 
 	//float*		gradient_magnitude;		//	Pointer to gradient volume
 	//unsigned short*		gradient;		//	Pointer to gradient volume
@@ -73,7 +73,7 @@ typedef struct
 
 //	Variables from lex & yacc
 
-extern FILE*		yyin;
+extern FILE*	yyin;
 extern DATA**	dataptr;
 
 
@@ -90,7 +90,7 @@ extern DATA**	dataptr;
 //	Returns	:	The pointer of new volume object.
 //
 
-DATA*		dataOpen(const char* filename);
+DATA*	dataOpen(const char* filename);
 
 
 //	dataClose
@@ -103,7 +103,7 @@ DATA*		dataOpen(const char* filename);
 //	Returns	:	nothing.
 //
 
-void		dataClose(DATA* data);
+void	dataClose(DATA* data);
 
 
 //	dataReadRAW
@@ -116,7 +116,7 @@ void		dataClose(DATA* data);
 //	Returns	:	nothing.
 //
 
-void		dataReadRAW(DATA* data);
+void	dataReadRAW(DATA* data);
 
 
 //	dataReadIKDtree
@@ -129,7 +129,7 @@ void		dataReadRAW(DATA* data);
 //	Returns	:	nothing.
 //
 
-void		dataReadIKDtree(DATA* data);
+void	dataReadIKDtree(DATA* data);
 
 
 //	dataGetMaxMin
@@ -142,7 +142,7 @@ void		dataReadIKDtree(DATA* data);
 //	Returns	:	nothing.
 //
 
-void		dataGetMaxMin(DATA* data);
+void	dataGetMaxMin(DATA* data);
 
 
 //	dataGenHistogram
@@ -160,7 +160,7 @@ void		dataGetMaxMin(DATA* data);
 //	Returns	:	pointer to the new histogram array.
 //
 
-int*		dataGenHistogram(int level,DATA* data,int* max,int* min,int filter);
+int*	dataGenHistogram(int level,DATA* data,int* max,int* min,int filter);
 
 
 //	dataGenHistogramEx
@@ -178,7 +178,7 @@ int*		dataGenHistogram(int level,DATA* data,int* max,int* min,int filter);
 //	Returns	:	pointer to the new histogram array.
 //
 
-int*		dataGenHistogramEx(int level,DATA* data,int* max,int* min,int filter);
+int*	dataGenHistogramEx(int level,DATA* data,int* max,int* min,int filter);
 
 
 //	histogramGenDiff
@@ -192,7 +192,7 @@ int*		dataGenHistogramEx(int level,DATA* data,int* max,int* min,int filter);
 //	Returns	:	pointer to the new histogram array.
 //
 
-int*		histogramGenDiff(int level,int* histogram);
+int*	histogramGenDiff(int level,int* histogram);
 
 
 //	histogramGenLDiff
@@ -206,7 +206,7 @@ int*		histogramGenDiff(int level,int* histogram);
 //	Returns	:	pointer to the new histogram array.
 //
 
-int*		histogramGenLDiff(int level,int* histogram);
+int*	histogramGenLDiff(int level,int* histogram);
 
 
 //	histogramGenRDiff
@@ -220,7 +220,7 @@ int*		histogramGenLDiff(int level,int* histogram);
 //	Returns	:	pointer to the new histogram array.
 //
 
-int*		histogramGenRDiff(int level,int* histogram);
+int*	histogramGenRDiff(int level,int* histogram);
 
 
 //	filterGenGaussian
@@ -236,8 +236,8 @@ int*		histogramGenRDiff(int level,int* histogram);
 //
 
 double*	filterGenGaussian(float sigma,int level);
-int*		histogramApplyGaussianFilter(int level,int* histogram,int* max,int* min,float sigma,int size);
-int*		histogramApplyGaussianFilterEx(int level,int* histogram,int* max,int* min,float sigma,int size);
+int*	histogramApplyGaussianFilter(int level,int* histogram,int* max,int* min,float sigma,int size);
+int*	histogramApplyGaussianFilterEx(int level,int* histogram,int* max,int* min,float sigma,int size);
 
 
 //	dataValue
@@ -251,10 +251,10 @@ int*		histogramApplyGaussianFilterEx(int level,int* histogram,int* max,int* min,
 //	Returns	:	gaussian map pointer.
 //
 
-int		dataValue(DATA*,int x,int y,int z);
-void		dataGenGradient(DATA* data);
-void		dataReadGradient(DATA* data);
-void		dataHistogramEqualization(DATA* data);
+int	dataValue(DATA*,int x,int y,int z);
+void	dataGenGradient(DATA* data);
+void	dataReadGradient(DATA* data);
+void	dataHistogramEqualization(DATA* data);
 
 
 #endif /*DATA_H_*/

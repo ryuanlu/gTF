@@ -1,11 +1,7 @@
-#include	<stdlib.h>
-#include	"util.h"
-#include	"gTF.h"
-
-#include	"glwin.h"
-#include	"aa2Dslicewin.h"
-
-
+#include <stdlib.h>
+#include "intl.h"
+#include "glwin.h"
+#include "util.h"
 
 //	GLWin_new
 //	------------------------------------------------------------------------
@@ -18,11 +14,10 @@
 //	Returns	:	The pointer of new GLWin object.
 //
 
-GLWin*		GLWin_new(const char* title,GdkGLContext* shared_glrc)
+GLWin*		GLWin_new(const char* title, GLXContext shared_glrc)
 {
 	GLWin		*glwin;
 	GtkBuilder	*builder;
-	GdkGLConfig	*glconfig;
 
 	glwin=calloc(sizeof(GLWin),1);
 
@@ -34,7 +29,7 @@ GLWin*		GLWin_new(const char* title,GdkGLContext* shared_glrc)
 
 
 	glwin->window		=GTK_WIDGET(gtk_builder_get_object(builder,"glwin"));
-	glwin->glcanvas	=GTK_WIDGET(gtk_builder_get_object(builder,"glcanvas"));
+	glwin->canvas	=GTK_WIDGET(gtk_builder_get_object(builder,"glcanvas"));
 
 	glwin->menu		=GTK_WIDGET(gtk_builder_get_object(builder,"popup_menu"));
 	g_object_ref(G_OBJECT(glwin->menu));
@@ -47,20 +42,13 @@ GLWin*		GLWin_new(const char* title,GdkGLContext* shared_glrc)
 
 	//	OpenGL setup
 
-	glconfig=gdk_gl_config_new_by_mode(GDK_GL_MODE_RGB|GDK_GL_MODE_DEPTH|GDK_GL_MODE_DOUBLE);
-	gtk_widget_set_gl_capability(glwin->glcanvas,glconfig,shared_glrc,TRUE,GDK_GL_RGBA_TYPE);
-
-	gtk_widget_realize(glwin->glcanvas);
+	glwin->glcanvas = gtk_glcanvas_new(glwin->canvas, shared_glrc);
 	gtk_widget_show_all(glwin->menu);
-
-	glwin->glrc=gtk_widget_get_gl_context(glwin->glcanvas);
-	glwin->gldrawable=gtk_widget_get_gl_drawable(glwin->glcanvas);
-
 
 	//	Window properties
 
 	gtk_window_set_title(GTK_WINDOW(glwin->window),_(title));
-	gdk_window_set_cursor(glwin->glcanvas->window,gdk_cursor_new(GDK_HAND1));
+	gdk_window_set_cursor(glwin->canvas->window,gdk_cursor_new(GDK_HAND1));
 	gtk_window_set_default_size(GTK_WINDOW(glwin->window),800,800);
 	glwin->fov=45.0f;
 	return	glwin;
@@ -88,7 +76,7 @@ int	GLWin_Menu_handler(GtkWidget *widget,GLWin* glwin)
 {
 	if(widget==glwin->menuitem)
 	{
-		gdk_gl_drawable_make_current(glwin->gldrawable,glwin->glrc);
+		glcanvas_make_current(glwin->glcanvas, NULL);
 		glTakeScreenshot(glwin->window);
 	}
 	return FALSE;

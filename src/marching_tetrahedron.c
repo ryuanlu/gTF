@@ -1,8 +1,6 @@
-#include	"marching_tetrahedron.h"
-#include	"data.h"
-
-#include	<stdlib.h>
-
+#include <stdlib.h>
+#include "marching_tetrahedron.h"
+#include "data.h"
 
 #define		AXIS_X	(0)
 #define		AXIS_Y	(1)

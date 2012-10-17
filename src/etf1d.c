@@ -1,17 +1,14 @@
-#include	<stdlib.h>
-#include	<memory.h>
-
-#include	"gTF.h"
-#include	"glext.h"
-#include	"tfaux.h"
-#include	"aa2Dslicewin.h"
-#include	"aa3Dtexwin.h"
-#include	"va3Dtexwin.h"
-#include	"mainwin.h"
-
-
-#include	"etf1d.h"
-#include	"util.h"
+#include <stdlib.h>
+#include <memory.h>
+#include "intl.h"
+#include "glext.h"
+#include "tfaux.h"
+#include "aa2Dslicewin.h"
+#include "aa3Dtexwin.h"
+#include "va3Dtexwin.h"
+#include "mainwin.h"
+#include "etf1d.h"
+#include "util.h"
 
 strETF1Dpanel	ETF1Dpanel;
 
@@ -122,7 +119,6 @@ void	tfCreateETF1Dpanel(int i)
 
 void	tfSetupETF1Dpanel(void)
 {
-	GdkGLConfig	*glconfig;
 	int		shader;
 
 	//	Window properties
@@ -135,15 +131,8 @@ void	tfSetupETF1Dpanel(void)
 
 	//	Create OpenGL canvas
 
-	glconfig=gdk_gl_config_new_by_mode (GDK_GL_MODE_RGB|GDK_GL_MODE_DEPTH|GDK_GL_MODE_DOUBLE);
-	gtk_widget_set_gl_capability(GTK_WIDGET(ETF1Dpanel.hcodisplay),glconfig,gtftable.sharedrc,TRUE,GDK_GL_RGBA_TYPE);
-
-	gtk_widget_realize(ETF1Dpanel.hcodisplay);
-
-	ETF1Dpanel.glrc=gtk_widget_get_gl_context(ETF1Dpanel.hcodisplay);
-	ETF1Dpanel.gldrawable=gtk_widget_get_gl_drawable(ETF1Dpanel.hcodisplay);
-
-	gdk_gl_drawable_make_current(ETF1Dpanel.gldrawable,ETF1Dpanel.glrc);
+	ETF1Dpanel.glcanvas = gtk_glcanvas_new(ETF1Dpanel.hcodisplay, gtftable.sharedrc);
+	glcanvas_make_current(ETF1Dpanel.glcanvas, NULL);
 
 
 	//	Setup all shaders
@@ -200,7 +189,7 @@ void	ETF1D_init(void)
 
 	ETF1Dpanel.cmap=cmapNewHSV(gtftable.level);
 
-	gdk_gl_drawable_make_current(ETF1Dpanel.gldrawable,ETF1Dpanel.glrc);
+	glcanvas_make_current(ETF1Dpanel.glcanvas, NULL);
 
 
 	glViewport(0,0,512,200);	//	Viewport must be resized, or canvas will be 1 point.
@@ -253,7 +242,7 @@ void	ETF1D_init(void)
 void	ETF1D_release(void)
 {
 	if(!gtftable.data) return;
-	gdk_gl_drawable_make_current(ETF1Dpanel.gldrawable,ETF1Dpanel.glrc);
+	glcanvas_make_current(ETF1Dpanel.glcanvas, NULL);
 	cmapRelease(ETF1Dpanel.cmap);
 	glDeleteTextures(1,&ETF1Dpanel.ctex);
 	glDeleteTextures(1,&ETF1Dpanel.otex);
@@ -270,7 +259,7 @@ void	ETF1D_release(void)
 
 void	ETF1D_InitAA2Dslice(void)
 {
-	gdk_gl_drawable_make_current(AA2DSlicewin.gldrawable,AA2DSlicewin.glrc);
+	glcanvas_make_current(AA2DSlicewin.glcanvas, NULL);
 
 	glUniform1f(ETF1Dpanel.AA2Dsliceloc.coefloc,65535.0/(gtftable.data->vmax-gtftable.data->vmin));
 	glUniform1f(ETF1Dpanel.AA2Dsliceloc.shiftloc,(double)gtftable.data->vmin/(double)(gtftable.data->vmax-gtftable.data->vmin));
@@ -295,7 +284,8 @@ void	ETF1D_InitAA2Dslice(void)
 
 void	ETF1D_InitAA3Dtex(void)
 {
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 
 	glUniform1f(ETF1Dpanel.AA3Dtexloc.coefloc,65535.0/(gtftable.data->vmax-gtftable.data->vmin));
 	glUniform1f(ETF1Dpanel.AA3Dtexloc.shiftloc,(double)gtftable.data->vmin/(double)(gtftable.data->vmax-gtftable.data->vmin));
@@ -337,7 +327,7 @@ void	ETF1D_InitAA3Dtex(void)
 void	ETF1D_InitVA3Dtex(void)
 {
 
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 
 	glUniform1iv(ETF1Dpanel.VA3Dtexvsloc.sequenceloc,64,va3Dtex_nsequence);
 	glUniform1iv(ETF1Dpanel.VA3Dtexvsloc.valoc,24,va3Dtex_va);
@@ -408,7 +398,7 @@ int	ETF1Dpanel_hcodisplay_handler(GtkWidget *widget, GdkEvent *event,gpointer us
 	int m,n;
 	char str[64];
 
-	gdk_gl_drawable_make_current(ETF1Dpanel.gldrawable,ETF1Dpanel.glrc);
+	glcanvas_make_current(ETF1Dpanel.glcanvas, NULL);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -416,7 +406,7 @@ int	ETF1Dpanel_hcodisplay_handler(GtkWidget *widget, GdkEvent *event,gpointer us
 	if(!gtftable.data)
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		gdk_gl_drawable_swap_buffers(ETF1Dpanel.gldrawable);
+		glcanvas_swap_buffers(ETF1Dpanel.glcanvas);
 		return TRUE;
 	}
 
@@ -460,7 +450,7 @@ int	ETF1Dpanel_hcodisplay_handler(GtkWidget *widget, GdkEvent *event,gpointer us
 
 	glEnable(GL_TEXTURE_1D);
 	glColor3f(1.0,1.0,1.0);
-	gdk_gl_drawable_swap_buffers(ETF1Dpanel.gldrawable);
+	glcanvas_swap_buffers(ETF1Dpanel.glcanvas);
 
 
 	//	Update information that mouse pointed
@@ -742,9 +732,9 @@ void	ETF1D_Update(void)
 	glTexImage1D(GL_TEXTURE_1D,0,4,TF1D_TEXTURE_WIDTH,0,GL_RGBA,GL_UNSIGNED_BYTE,cmap->colormap);
 	cmapRelease(cmap);
 
-	gdk_window_invalidate_rect(AA3DTexwin.glwin->window->window,NULL,TRUE);
-	gdk_window_invalidate_rect(AA2DSlicewin.window->window,NULL,TRUE);
-	gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window,NULL,TRUE);
+	gdk_window_invalidate_rect(AA3DTexwin.glwin->window->window, NULL, TRUE);
+	gdk_window_invalidate_rect(AA2DSlicewin.window->window, NULL, TRUE);
+	gdk_window_invalidate_rect(VA3DTexwin.glwin->window->window, NULL, TRUE);
 
 }
 
@@ -756,7 +746,7 @@ void	ETF1Dpanel_UpdateTexture(void)
 	getRGBfromColormap(ETF1Dpanel.cmap,TF1D_TEXTURE_WIDTH,ETF1Dpanel.cmaptex);
 	getALPHAfromColormap(ETF1Dpanel.cmap,TF1D_TEXTURE_WIDTH,ETF1Dpanel.opacitytex);
 
-	gdk_gl_drawable_make_current(ETF1Dpanel.gldrawable,ETF1Dpanel.glrc);
+	glcanvas_make_current(ETF1Dpanel.glcanvas, NULL);
 
 	glBindTexture(GL_TEXTURE_1D,ETF1Dpanel.ctex);
 	glTexSubImage1D(GL_TEXTURE_1D,0,0,TF1D_TEXTURE_WIDTH,GL_RGB,GL_UNSIGNED_BYTE,ETF1Dpanel.cmaptex);
@@ -791,7 +781,7 @@ void	ETF1Dpanel_ToggleLevoy(GtkWidget *widget,gpointer user_data)
 
 	if(GTK_WIDGET_VISIBLE(AA3DTexwin.glwin->window))
 	{
-		gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+		glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 		glUniform1i(ETF1Dpanel.AA3Dtexloc.levoy_swloc,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ETF1Dpanel.levoy_sw)));
 		glUniform1f(ETF1Dpanel.AA3Dtexloc.levoy_valueloc,gtk_spin_button_get_value(GTK_SPIN_BUTTON(ETF1Dpanel.levoy_value)));
 		glUniform1f(ETF1Dpanel.AA3Dtexloc.levoy_thicknessloc,gtk_spin_button_get_value(GTK_SPIN_BUTTON(ETF1Dpanel.levoy_thickness)));
@@ -800,13 +790,13 @@ void	ETF1Dpanel_ToggleLevoy(GtkWidget *widget,gpointer user_data)
 	}
 //	if(GTK_WIDGET_VISIBLE(AA2DSlicewin.window))
 //	{
-//		gdk_gl_drawable_make_current(AA2DSlicewin.gldrawable,AA2DSlicewin.glrc);
+//		glcanvas_make_current(AA2DSlicewin.glcanvas, NULL);
 //		glUniform1i(ETF1Dpanel.AA3Dtexloc.levoy_swloc,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ETF1Dpanel.levoy_sw)));
 //		gdk_window_invalidate_rect(AA2DSlicewin.window->window,NULL,TRUE);
 //	}
 	if(GTK_WIDGET_VISIBLE(VA3DTexwin.glwin->window))
 	{
-		gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+		glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 		glUniform1i(ETF1Dpanel.VA3Dtexloc.levoy_swloc,gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ETF1Dpanel.levoy_sw)));
 		glUniform1f(ETF1Dpanel.VA3Dtexloc.levoy_valueloc,gtk_spin_button_get_value(GTK_SPIN_BUTTON(ETF1Dpanel.levoy_value)));
 		glUniform1f(ETF1Dpanel.VA3Dtexloc.levoy_thicknessloc,gtk_spin_button_get_value(GTK_SPIN_BUTTON(ETF1Dpanel.levoy_thickness)));

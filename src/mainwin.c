@@ -1,24 +1,20 @@
-#include	<stdlib.h>
-#include	<memory.h>
-#include	<math.h>
-
-#include	"glext.h"
-
-#include	"gTF.h"
-#include	"util.h"
-#include	"ikdtree.h"
-
-#include	"propertieswin.h"
-#include	"aa2Dslicewin.h"
-#include	"aa3Dtexwin.h"
-#include	"va3Dtexwin.h"
-#include	"isosurfacewin.h"
-#include	"isosurfacectrlwin.h"
-
-#include	"etf1d.h"
-
-#include	"mainwin.h"
-#include	"../cube.xpm"
+#include <stdlib.h>
+#include <memory.h>
+#include <math.h>
+#include "intl.h"
+#include "glext.h"
+#include "gTF.h"
+#include "util.h"
+#include "ikdtree.h"
+#include "propertieswin.h"
+#include "aa2Dslicewin.h"
+#include "aa3Dtexwin.h"
+#include "va3Dtexwin.h"
+#include "isosurfacewin.h"
+#include "isosurfacectrlwin.h"
+#include "etf1d.h"
+#include "mainwin.h"
+#include "../cube.xpm"
 
 
 strMainwin	Mainwin;
@@ -198,7 +194,7 @@ void	Mainwin_OpenClicked_handler(GtkWidget *widget,gpointer user_data)
 
 	//	Load as textures
 
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,gtftable.sharedrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, gtftable.sharedrc);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 
@@ -452,15 +448,15 @@ void	Mainwin_TFChanged_handler(GtkWidget *widget,gpointer user_data)
 		gtftable.TF_init[gtftable.current_tf]();
 	}
 
-	gdk_gl_drawable_make_current(AA2DSlicewin.gldrawable,AA2DSlicewin.glrc);
+	glcanvas_make_current(AA2DSlicewin.glcanvas, NULL);
 	glUseProgram(gtftable.shader[gtftable.current_tf].aa2Dslice);
 	if(GTK_WIDGET_VISIBLE(AA2DSlicewin.window))gtftable.AA2Dslice_init[gtftable.current_tf]();
 
-	gdk_gl_drawable_make_current(AA3DTexwin.glwin->gldrawable,AA3DTexwin.glwin->glrc);
+	glcanvas_make_current(AA3DTexwin.glwin->glcanvas, NULL);
 	glUseProgram(gtftable.shader[gtftable.current_tf].aa3Dtex);
 	if(GTK_WIDGET_VISIBLE(AA3DTexwin.glwin->window))gtftable.AA3Dtex_init[gtftable.current_tf]();
 
-	gdk_gl_drawable_make_current(VA3DTexwin.glwin->gldrawable,VA3DTexwin.glwin->glrc);
+	glcanvas_make_current(VA3DTexwin.glwin->glcanvas, NULL);
 	glUseProgram(gtftable.shader[gtftable.current_tf].va3Dtex);
 	if(GTK_WIDGET_VISIBLE(VA3DTexwin.glwin->window))gtftable.VA3Dtex_init[gtftable.current_tf]();
 
